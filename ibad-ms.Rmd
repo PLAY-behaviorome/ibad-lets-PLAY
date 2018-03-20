@@ -27,20 +27,17 @@ affiliation:
 
 author_note: |
   Rick O. Gilmore is in the Department of Psychology, The Pennsylvania State University, University Park, PA 16802.
-
-  Karen E. Adolph is in...
-  
-  Catherine L. Tamis-LeMonda is in...
-  
-  Kasey Soska is...
-  
-  Joy L. Kennedy is...
+  Karen E. Adolph is in the Department of Psychology, New York University, 4 Washington Place, New York, NY 10003.
+  Catherine L. Tamis-LeMonda is in the Department of Applied Psychology, New York University.
+  Kasey Soska is is Scientific Project Director at Databrary.
+  Joy L. Kennedy is Scientific Support Specialist at Databrary.
+  We acknowledge support from the National Science Foundation (BCS-1238595), the Eunice Kennedy Shriver National Institute for Child Health and Human Development (U01-HD-076595), the Society for Research in Child Development, the Alfred P. Sloan Foundation, and the LEGO Foundation.
 
 abstract: |
-  The overall goal of the PLAY (Play & Learning Across a Year) project is to catalyze discovery about behavioral development in infancy. 
-  PLAY will focus on the critical period from 12 to 24 months of age when infants show remarkable advances in language, object interaction, locomotion, and emotion regulation.
-  PLAY will leverage the joint expertise of 63 “launch group” researchers, and capitalize on the Databrary video-sharing library and Datavyu video-coding tool to exploit the power of video to reveal the richness and complexity of behavior. 
-  Together, PLAY researchers will collect, transcribe, code, share, and use a video corpus of infant and mother naturalistic activity in the home to test behavioral, developmental, and environmental cascades. 
+  To paraphrase Piaget9, Montessori10, and Bruner11,12, play is the work of infants.
+  The overall goal of the PLAY (Play & Learning Across a Year) project is to catalyze discovery about the form and dynamics of this work across a critical period from 12 to 24 months of age when infants show remarkable advances in language, object interaction, locomotion, and emotion regulation.
+  PLAY will leverage the joint expertise of 65 “launch group” researchers, and capitalize on the Databrary video-sharing library and Datavyu video-coding tool to exploit the power of video to reveal the richness and complexity of behavior. 
+  These researchers will collect, transcribe, code, share, and exploit a video corpus of infant and mother naturalistic activity in the home to test behavioral, developmental, and environmental cascades. 
   The project will demonstrate the value and feasibility of a cross-domain synergistic approach, and advance new ways to use video as documentation to facilitate discovery and ensure transparency and reproducibility.
   
 keywords          : "keywords"
@@ -105,7 +102,7 @@ Video documents the microstructure of behavior in real time and global patterns 
 Video chronicles who did what, and how, when, and where they did it6—whether the dog was big, eating, jumping, or barking, whether the child looked at the dog, touched the dog, shied away from or approached the dog, and expressed interest, fear, or joy.
 
 The overarching goal of the PLAY (Play & Learning Across a Year) project is to exploit the power of video to catalyze discovery and transform knowledge about behavioral development in infancy. 
-The project capitalizes on the NICHD/NSF-funded Databrary video-sharing library7 and the Datavyu video-coding tool8 developed by PIs Adolph and Gilmore, and the joint expertise of 63 PLAY “launch group” researchers in the United States and Canada (see BIOSKETCHES and LETTERS OF SUPPORT). 
+The project capitalizes on the NICHD/NSF-funded Databrary video-sharing library7 and the Datavyu video-coding tool8 developed by PIs Adolph and Gilmore, and the joint expertise of 63 PLAY “launch group” researchers in the United States and Canada. 
 To do so, we will create the first, large-scale, sharable and reusable, transcribed, coded, and curated video corpus of human behavior. 
 And we will advance new video-based means of documentation to increase transparency and reproducibility in behavioral science.
 
@@ -468,12 +465,13 @@ Of course, PLAY's homogenous sampling strategy and cross-sectional design have l
 Although the sample will not be nationally representative, it will capture important demographic variations and can easily grow. 
 With only one session per dyad, we cannot test stability or predictive validity of behaviors. 
 However, the protocol and codes can be easily extended to other populations and to longitudinal designs (several launch group members plan to do this). If labs assigned to data collection or coding cannot fulfill their tasks, we will replace them.  
-We will monitor ongoing data collections. If the data are too homogeneous, we will ask some sites to recruit more than their allotment. 
+We will monitor ongoing data collections. 
+If the data are too homogeneous, we will ask some sites to recruit more than their allotment. 
 If a lab’s codes are not reliable, we will reassign the videos and retrain the coder.
 
 In conclusion, the PLAY project represents an innovative, synergistic, cross-domain approach to developmental science that will facilitate scientific discovery, transparency, and reproducibility we hope for years to come. 
-We will answer fundamental cross-domain questions about behavioral, environmental, and developmental cascades. 
-We will create the first, large-scale, sharable, reusable, fully transcribed, coded, and curated video corpus of human behavior. We will establish video sharing of procedures, codes, and findings as a new standard in developmental and behavioral science.
+In creating the first, large-scale, sharable, reusable, fully transcribed, coded, and curated video corpus of human behavior, hope to establish video sharing of procedures, codes, and findings as a new standard in developmental and behavioral science.
+In so doing, we hope to help answer fundamental cross-domain questions about behavioral, environmental, and developmental cascades as they shape the playful work of infants.
 
 \newpage
 

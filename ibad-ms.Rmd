@@ -1,0 +1,239 @@
+---
+title             : "Examining play and learning across a year: The PLAY Project"
+shorttitle        : "PLAY Project"
+
+author: 
+  - name          : "Rick O. Gilmore"
+    affiliation   : "1,3"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Department of Psychology, University Park, PA 16802"
+    email         : "rogilmore@psu.edu"
+  - name          : "Karen E. Adolph"
+    affiliation   : "2,3"
+  - name          : "Catherine L. Tamis-LeMonda"
+    affiliation   : "2"
+  - name          : "Kasey Soska"
+    affiliation   : "3"
+  - name          : "Joy L. Kennedy"
+    affiliation   : "2,3"
+
+affiliation:
+  - id            : "1"
+    institution   : "The Pennsylvania State University"
+  - id            : "2"
+    institution   : "New York University"
+  - id            : "3"
+    institution   : "Databrary.org"
+
+author_note: |
+  Rick O. Gilmore is in the Department of Psychology, The Pennsylvania State University, University Park, PA 16802.
+
+  Karen E. Adolph is in...
+  
+  Catherine L. Tamis-LeMonda is in...
+  
+  Kasey Soska is...
+  
+  Joy L. Kennedy is...
+
+abstract: |
+  Enter abstract here. Each new line herein must be indented, like this line.
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["r-references.bib"]
+
+figsintext        : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+lineno            : yes
+
+lang              : "english"
+class             : "man"
+output            : 
+  papaja::apa6_pdf: default
+  github_document: default
+---
+
+<!-- 1. Fix collecting counties, roster -->
+
+```{r load_packages, include = FALSE}
+library("papaja")
+library(tidyverse)
+library(httr)
+library(stringr)
+library(choroplethr)
+library(choroplethrMaps)
+library(tidyr)
+```
+
+```{r get-install-census-key}
+# Get a Census API key from <URL>
+# install it via api.key.install(key)
+```
+
+```{r analysis_preferences}
+# Seed for random number generation
+set.seed(42)
+
+# Hacky must fix
+#api.dir <- "../../gilmore-lab/databrary-r-api/"
+command.list <- c("login_db.R", "config_db.R", "authenticate_db.R", "download_csv.R")
+for (c in 1:length(command.list)) {
+  source(command.list[c])
+}
+source("R/numbers2words.R")
+source("R/Cap_all.R")
+source("R/Init_cap.R")
+source("R/census.api.key.R")
+
+login_db()
+config_db()
+#authenticate_db()
+
+csv.dir <- "csv/"
+```
+
+# Pilot Study
+
+## Methods
+We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+A publicly-accessible wiki \cite{PLAY-wiki} was used to document all procedures and code definitions.
+
+### Participants
+
+```{r download-spreadsheet-from-db}
+this.vol <- 444
+vol.444 <- download_csv(this.vol)
+```
+
+```{r calculate-demo-data}
+n.subs <- dim(vol.444)[1]
+
+# There's some bug when this next command knits. It is fine when
+# run from the console.
+age.by.gender <- with(vol.444, table(participant.gender, group.name))
+race.by.ethnicity <- with(vol.444, table(participant.race, participant.ethnicity))
+n.white <- sum(race.by.ethnicity[4,])
+n.asian <- sum(race.by.ethnicity[1,])
+n.multi <- sum(race.by.ethnicity[2,])
+n.unreported <- sum(race.by.ethnicity[3,])
+n.hispanic <- sum(race.by.ethnicity[,1])
+```
+
+A total of $n=$ `r n.subs` infants were tested, $n=$ `r sum(age.by.gender[,1])` 12-month-olds (`r age.by.gender[1,1]` female), $n=$ `r sum(age.by.gender[,2])` 18-month-olds (`r age.by.gender[1,2]` female), and $n=$ `r sum(age.by.gender[,3])` (`r age.by.gender[1,3]` female). 
+All were from the New York City area. `r Init_cap(numbers2words(n.white))` infants were White, `r numbers2words(n.asian)` was Asian, `r numbers2words(n.multi)` reported more than one race, and `r numbers2words(n.unreported)` did not report a race. `r Init_cap(numbers2words(n.hispanic))` were of Hispanic or Latino ethnicity.
+
+### Material
+
+### Procedure
+
+### Data analysis
+We used `r cite_r("r-references.bib")` for all of our statistical analyses. Datavyu \cite{datavyu} was used for video coding. All code used in data analysis and for this manuscript may be found in the GitHub repository associated with the paper \cite{github.paper}.
+
+## Results
+
+### Sample characteristics
+
+### Ambient sound levels
+
+## Discussion
+
+# Proposed study
+
+The proposed study builds on and extends the pilot study in several ways.
+
+## Methods
+The same publicly-accessible wiki \cite{PLAY-wiki} will be used to document all procedures and code definitions.
+
+### Participants
+
+```{r download-demographic-data}
+counties <- read.csv(paste0(csv.dir, "city-state-county.csv"), stringsAsFactors = FALSE)
+
+data("county.regions")
+counties <- left_join(counties, county.regions)
+demog <- get_county_demographics(endyear=2013, span=5)
+county.demo <- left_join(counties, demog)
+
+# Recapitalize county
+county.demo$County <- unlist(lapply(county.demo$County, Cap_all))
+```
+
+```{r planned-enrollment-by-race}
+county.demo %>%
+  filter(Collecting == "Collecting") %>%
+  arrange(US.Region, Site.code, State, County) %>%
+  select(US.Region, Site.code, State, County, total_population,
+         percent_white, percent_black, percent_asian,
+         percent_hispanic, multi) -> 
+  county.race.ethnicity
+```
+
+```{r PLAY-race-plot}
+county.demo %>%
+  select(US.Region, percent_black, percent_hispanic, percent_asian, percent_white) %>%
+  gather(key = race, value = pop.percent, percent_black:percent_white) ->
+county.pop.percent
+
+county.pop.percent$race <- recode(county.pop.percent$race, 
+                                  percent_black = "Black", 
+                                  percent_hispanic = "Hispanic",
+                                  percent_asian = "Asian",
+                                  percent_white = "White")
+
+county.pop.percent %>%
+  ggplot() +
+  aes(y = pop.percent, x = race, fill = race, color = race) +
+  geom_point(size = 2) +
+  theme_classic() +
+  theme(legend.position = "none",
+        axis.title = element_text(size = rel(1.5), face ="bold"),
+        axis.text = element_text(size = rel(1.2)))
+```
+
+```{r PLAY-econ-plot}
+county.demo %>%
+  ggplot() +
+  aes(x = per_capita_income) +
+  geom_histogram() +
+  theme_classic() +
+  theme(axis.title = element_text(size = rel(1.5), face ="bold"),
+        axis.text = element_text(size = rel(1.2))) +
+  xlab("Median per capita income")
+```
+
+```{r PLAY-ed-plot}
+# Plot education
+```
+
+We plan to collect data from $n=900$ infant-mother dyads from 30 different communities located around the U.S. 
+Each site will collect data from 30 infants, 10 each at 12-, 18-, and 24-months of age (+/- 1 week), with equal numbers of females and males. Figure \@ref(fig:PLAY-sitemap) shows the proposed data collection sites and non-collecting, data coding and analysis sites.
+
+While not designed to be nationally representative, the data collection sites are diverse in aggregate, based on Census data.
+\@ref(fig:PLAY-race-plot) shows the proportion of African American, Hispanic/Latino, and Asian residents in the counties surrounding the collection sites from which participating researchers will recruit.
+Figure \@ref(fig:PLAY-econ-plot) and figure \@ref(fig:PLAY-ed-plot) show economic and educational attainment indicators.
+Data collection sites will have soft, advisory recruiting targets based on these sorts of measures for their individual communities.
+
+Readers may wish to know that these data are downloaded from the Census Bureau using R's `choroplethr` \cite{choropletr} package.
+<!-- Note, that to access Census API, one must first acquire an API key from <http://www.census.gov/developers/>. Then, one must run `api.key.install()` to avoid throwing the API error; alternatively give the api key value as `key = <api.key>`. -->
+
+### Material
+
+### Procedure
+
+### Data analysis
+
+# General Discussion
+
+\newpage
+
+# References
+```{r create_r-references}
+r_refs(file = "r-references.bib")
+```
+
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}

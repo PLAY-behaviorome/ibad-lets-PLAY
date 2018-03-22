@@ -4,3 +4,6 @@
 .Ruserdata
 ibad-lets-PLAY.Rproj
 .databrary.RData
+.httr-oauth
+*.fff
+*.tex

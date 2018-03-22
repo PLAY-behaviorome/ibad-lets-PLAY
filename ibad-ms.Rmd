@@ -34,11 +34,11 @@ author_note: |
   We acknowledge support from the National Science Foundation (BCS-1238595), the Eunice Kennedy Shriver National Institute for Child Health and Human Development (U01-HD-076595), the Society for Research in Child Development, the Alfred P. Sloan Foundation, and the LEGO Foundation.
 
 abstract: |
-  To paraphrase Piaget9, Montessori10, and Bruner11,12, play is the work of infants.
-  The overall goal of the PLAY (Play & Learning Across a Year) project is to catalyze discovery about the form and dynamics of this work across a critical period from 12 to 24 months of age when infants show remarkable advances in language, object interaction, locomotion, and emotion regulation.
+  Piaget9, Montessori10, and Bruner11,12, observed that play is the work of infants.
+  The overall goal of the PLAY (Play & Learning Across a Year) project is to catalyze discovery about the form and dynamics of this essential work across a critical period from 12 to 24 months of age when infants show remarkable advances in language, object interaction, locomotion, and emotion regulation.
   PLAY will leverage the joint expertise of 65 “launch group” researchers, and capitalize on the Databrary video-sharing library and Datavyu video-coding tool to exploit the power of video to reveal the richness and complexity of behavior. 
   These researchers will collect, transcribe, code, share, and exploit a video corpus of infant and mother naturalistic activity in the home to test behavioral, developmental, and environmental cascades. 
-  The project will demonstrate the value and feasibility of a cross-domain synergistic approach, and advance new ways to use video as documentation to facilitate discovery and ensure transparency and reproducibility.
+  The project will demonstrate the value and feasibility of a cross-domain synergistic approach to infant research while advancing new ways to use video as data and documentation to facilitate discovery and ensure transparency.
   
 keywords          : "keywords"
 wordcount         : "X"
@@ -55,10 +55,21 @@ lang              : "english"
 class             : "man"
 output            : 
   papaja::apa6_pdf: default
-  github_document: default
+  html_document:
+    toc_float: true
+    toc: true
+  github_document:
+    toc: true
 ---
 
-<!-- 1. Fix collecting counties, roster -->
+```{r configure-document, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE, 
+                      error = FALSE,
+                      message = FALSE,
+                      dpi = 300
+                      )
+```
 
 ```{r load_packages, include = FALSE}
 library(papaja)
@@ -70,12 +81,12 @@ library(choroplethrMaps)
 library(tidyr)
 ```
 
-```{r get-install-census-key}
-# Get a Census API key from <URL>
+```{r get-install-census-key, include = FALSE}
+# Get a Census API key from <https://api.census.gov/data/key_signup.html>
 # install it via api.key.install(key)
 ```
 
-```{r analysis_preferences}
+```{r analysis_preferences, include = FALSE}
 # Seed for random number generation
 set.seed(42)
 
@@ -92,7 +103,6 @@ source("R/census.api.key.R")
 
 login_db()
 config_db()
-#authenticate_db()
 
 csv.dir <- "csv/"
 ```
@@ -102,7 +112,7 @@ Video documents the microstructure of behavior in real time and global patterns 
 Video chronicles who did what, and how, when, and where they did it6—whether the dog was big, eating, jumping, or barking, whether the child looked at the dog, touched the dog, shied away from or approached the dog, and expressed interest, fear, or joy.
 
 The overarching goal of the PLAY (Play & Learning Across a Year) project is to exploit the power of video to catalyze discovery and transform knowledge about behavioral development in infancy. 
-The project capitalizes on the NICHD/NSF-funded Databrary video-sharing library7 and the Datavyu video-coding tool8 developed by PIs Adolph and Gilmore, and the joint expertise of 63 PLAY “launch group” researchers in the United States and Canada. 
+The project capitalizes on the NICHD/NSF-funded Databrary video-sharing library7 and the Datavyu video-coding tool8 developed by Adolph and Gilmore [@databrary-cites], and the joint expertise of 65 PLAY “launch group” researchers in the United States and Canada. 
 To do so, we will create the first, large-scale, sharable and reusable, transcribed, coded, and curated video corpus of human behavior. 
 And we will advance new video-based means of documentation to increase transparency and reproducibility in behavioral science.
 
@@ -114,28 +124,25 @@ Some of infants’ play involves toys and some play is joyful and goal directed,
 The project has three aims: 1. To create the first cross-domain, large-scale, transcribed, coded, and curated video corpus of human behavior—collected with a common protocol and coded with common criteria; 2. To answer fundamental questions about behavioral and developmental cascades; and 3. To demonstrate the scientific value, feasibility, and scalability of a synergistic approach to collaborative research, and advance new ways to use video as documentation to ensure transparency and reproducibility.
 In this paper, we describe the process of planning PLAY, our preliminary results from a pilot study, and plans for a larger scale implementation.
 
-<!-- Developmental science typically relies on small samples of convenience and is limited by the narrow expertise of individual researchers. Our cross-domain, synergistic approach will address these limitations by creating a video corpus that would never be possible in a single lab or typical consortium. The launch group jointly designed a common protocol to collect videos and questionnaire data from 900 infants (12-, 18-, and 24- month-olds) and their mothers during one hour of naturalistic unstructured activity in the home—here termed “play”—from 30 sites across the United States. Videos will be scored with common coding criteria, also jointly designed by the launch group. Thus, the PLAY corpus will reflect a common protocol, technical specifications, metadata, and foundational (first pass) video codes. It will include transcriptions and video codes of infant and mother communicative acts, gestures, object interactions, locomotion, and emotion. The corpus will be augmented with video home tours and questionnaire data on infant language, temperament, locomotion/falls, gender identity and socialization; home environment and media use; and family health and demographics. PLAY staff will provide training for coding and transcription in Datavyu, sharing videos and questionnaires in Databrary, and managing workflows, integrating datasets, and coordinating analyses. The transcriptions and collectively coded video corpus and additional coding passes applied by individual researchers will be openly shared on Databrary, thereby enhancing the value of public investments in behavioral research. -->
-
-<!-- AIM 2:  -->
-
-<!-- The launch group will leverage the raw videos, coded video data, and questionnaires to address key issues about behavioral, developmental, and environmental cascades—how function in one area influences function in another area to produce cumulative, epigenetic change. Developmental science has a long tradition of asking how interacting cascades shape adaptive and maladaptive functioning, but we lack data about how one thing leads to another in real time. Presumably, all cascades arise in and operate through real-time observable behaviors, such as when poverty restricts infants’ access to toys, which in turn affects mothers’ language and play interactions with infants, which is reflected in infants’ productive vocabulary. The rich PLAY corpus, designed with a common protocol and codes, will allow researchers to examine real-time behavioral cascades with unprecedented precision, scope, and scale. Researchers can test cascades within infants and within mothers; reciprocal influences between infants and mothers; and more complex influences from macro- environmental measures (e.g., SES, geographic region) to proximal environmental features (e.g., objects for play, home clutter, and chaos) to infant and caregiver behaviors. Researchers can compare behavioral cascades by infants’ age, skills, experiences, home language, and so on. -->
-
-<!-- AIM 3: To demonstrate the scientific value, feasibility, and scalability of a synergistic approach, and advance new ways to use video as documentation to ensure transparency and reproducibility -->
-<!-- By establishing and implementing best practices in data collection, video coding, and analyses of video and metadata, the PLAY project will serve as a proof of concept for a cross-domain, synergistic approach that can scale up to larger teams and down to individual labs, and transfer to other studies and populations. Through the development of a publicly shared, video-annotated wiki to define all aspects of the protocol and codes, we will innovate new ways to use video as documentation of procedures and codes to enhance transparency and reproducibility in behavioral science. We will create and share video excerpts that illustrate key findings to ensure that results have continued impact beyond the lifetime of the grant. We will establish video sharing of procedures, codes, and findings as a new standard in developmental science. -->
-
 # Project Planning
+
+```{r get-PLAY-roster}
+play.pis <- read_csv("csv/play-pis.csv")
+n.pis <- length(unique(paste0(play.pis$Last, play.pis$First)))
+n.institutions <- length(unique(play.pis$Institution))
+n.states <- length(unique(play.pis$State))
+```
 
 Planning began in late 2015. 
 Adolph, Tamis-LeMonda and Gilmore (PLAY PIs) invited researchers to join the launch group based on their interest in open science and infant-mother natural activity in the home, willingness to collaborate on data collection and coding, lab location, and domains of expertise (language, gesture, play, object exploration, tool use, locomotion, posture, physical activity, emotion, temperament, parent responsiveness, gender, home environment, media use, spatial demography, and sampling). 
 Nearly every invitee agreed. 
-The launch group contains 32% young/new investigators, 66% women, 19% non-white, from varied institutions (public and private universities and colleges, hospitals, agencies) with varied resources (62% public universities, 19% R15-eligible institutions) across the United States and Canada. 
-Each has committed to produce at least one research study based on the video corpus.
+The current launch group consists of `r n.pis` from `r n.institutions` from `r n.states`. `r round(with(play.pis, table(New)/sum(table(New)))*100, 0)[1]`% are new investigators, `r round(with(play.pis, table(Gender)/sum(table(Gender)))*100, 0)[1]`% women, `r round(with(play.pis, table(Race_eth)/sum(table(Race_eth)))*100, 0)[1]` non-white, from varied institutions (public and private universities and colleges, hospitals, agencies) with varied resources (`r sum(round(with(play.pis, table(Institution_Type)/sum(table(Institution_Type)))*100, 0)[1:3])` public universities, `r round(with(play.pis, table(R15_eligible)/sum(table(R15_eligible)))*100, 0)[1]`% R15-eligible institutions) across the United States and Canada. 
 
 To distribute the burden of video coding across researchers, the PLAY PIs recruited 10+ experts for each of four core coding passes—communication, object interaction, locomotion, and emotion. 
 These domains represent key areas of development and provide foundational information when time-locked to video. 
 Compared with other behaviors (e.g., visual attention), they are quick, easy, and reliable to code.
 
-Through a yearlong series of telephone conversations with each launch group member and 12 group webinars, we jointly developed a common sampling method and protocol (including materials, technical specifications, questionnaires, and non-video measures), designed common video codes, and established an infrastructure to divide responsibilities between PLAY staff and launch group. 
+Through a yearlong series of telephone conversations with each launch group member and 12 group webinars [@webinar-volume], we jointly developed a common sampling method and protocol (including materials, technical specifications, questionnaires, and non-video measures), designed common video codes, and established an infrastructure to divide responsibilities between PLAY staff and launch group. 
 We achieved consensus, with input from NICHD program staff, about all aspects of PLAY at a daylong workshop shared on Databrary56, at NIH in Dec 2016.
 
 The launch group jointly decided that the centerpiece of PLAY would be 900 one-hour videos of infant-mother dyads during natural play in the home. 
@@ -165,12 +172,6 @@ Based on the launch group's recommendations, we carried out a pilot study to tes
 
 ## Methods
 
-A publicly-accessible wiki \cite{PLAY-wiki} was used to document all procedures and code definitions.
-The wiki50 that links descriptions of every aspect of the protocol with exemplar third-person video clips (e.g., researcher scheduling home visit). The wiki will also link descriptions of each code to video clips illustrating the types of behaviors that do and do not satisfy the coding criteria. 
-These ways of using video as documentation are innovative, yet simple and inexpensive to produce, and will serve as a proof of concept for increasing transparency and reproducibility.
-
-Video as documentation cites
-
 ### Participants
 
 ```{r download-spreadsheet-from-db}
@@ -181,8 +182,6 @@ vol.444 <- download_csv(this.vol)
 ```{r calculate-demo-data}
 n.subs <- dim(vol.444)[1]
 
-# There's some bug when this next command knits. It is fine when
-# run from the console.
 age.by.gender <- with(vol.444, table(participant.gender, group.name))
 race.by.ethnicity <- with(vol.444, table(participant.race, participant.ethnicity))
 n.white <- sum(race.by.ethnicity[4,])
@@ -190,16 +189,24 @@ n.asian <- sum(race.by.ethnicity[1,])
 n.multi <- sum(race.by.ethnicity[2,])
 n.unreported <- sum(race.by.ethnicity[3,])
 n.hispanic <- sum(race.by.ethnicity[,1])
+
+# Clean-up to save memory
+rm(vol.444)
 ```
 
-A total of $n=$ `r n.subs` infants were tested, $n=$ `r sum(age.by.gender[,1])` 12-month-olds (`r age.by.gender[1,1]` female), $n=$ `r sum(age.by.gender[,2])` 18-month-olds (`r age.by.gender[1,2]` female), and $n=$ `r sum(age.by.gender[,3])` (`r age.by.gender[1,3]` female). 
+A total of $n=$ `r n.subs` infants were tested, $n=$ `r sum(age.by.gender[,1])` 12-month-olds (`r age.by.gender[1,1]` female), $n=$ `r sum(age.by.gender[,2])` 18-month-olds (`r age.by.gender[1,2]` female), and $n=$ `r sum(age.by.gender[,3])` (`r age.by.gender[1,3]` female) 24-month-olds. 
 All were from the New York City area. 
 `r Init_cap(numbers2words(n.white))` infants were White, `r numbers2words(n.asian)` was Asian, `r numbers2words(n.multi)` reported more than one race, and `r numbers2words(n.unreported)` did not report a race.
 `r Init_cap(numbers2words(n.hispanic))` were of Hispanic or Latino ethnicity.
 
 ### Procedure
 
-The PIs designed a wiki50 to aid training, ensure fidelity to the protocol and codes, and provide complete transparency (Figure 2). 
+A publicly-accessible wiki [@PLAY-wiki] was used to document all procedures and code definitions.
+The wiki50 links descriptions of every aspect of the protocol with exemplar third-person video clips (e.g., researcher scheduling home visit). 
+The wiki will also link descriptions of each code to video clips illustrating the types of behaviors that do and do not satisfy the coding criteria. 
+These ways of using video as documentation are innovative, yet simple and inexpensive to produce, and will serve as a proof of concept for increasing transparency and reproducibility.
+
+The wiki aids training, ensure fidelity to the protocol and codes, and provide complete transparency (Figure 2). 
 The wiki documents the entire data collection protocol, all video-based measures including transcription and code definitions, and all questionnaire and non-video measures. 
 It uses photos and video exemplars to make text-based descriptions clear and transparent. 
 The wiki makes cross-site training consistent and cost-efficient and ensure that future researchers can reproduce our protocol with high fidelity.
@@ -211,11 +218,11 @@ Note, both infant and mother communicative acts and gestures together take < 3 h
 ### Data analysis
 
 For this report, we used `r cite_r("r-references.bib")` for all of our statistical analyses.
-Datavyu \cite{datavyu} was used for video coding.
-All code used in data analysis and for this manuscript may be found in the GitHub repository associated with the paper \cite{github.paper}.
+Datavyu [@datavyu] was used for video coding.
+All code used in data analysis and for this manuscript may be found in the GitHub repository associated with the paper [@ibad-play-ms].
 
 To compute inter-observer reliability, we ran scripts in Datavyu to selects a random segment of video (25% or 5 mins) from each 20- minute segment of natural play. 
-Inter-observer reliability for the pilot videos was 96.7%-99.3% exact frame agreement (kappas > .93, ps < .001) for duration codes (object interactions, locomotion, emotion) and 94.1%- 99.5% code agreement (kappas > .89, ps < .001) for categorical events (communicative acts, gesture).
+Inter-observer reliability for the pilot videos was 96.7%-99.3% exact frame agreement ($\kappa$s > .93, $ps$ < .001) for duration codes (object interactions, locomotion, emotion) and 94.1%- 99.5% code agreement ($\kappa$s > .89, $ps$ < .001) for categorical events (communicative acts, gesture).
 
 ## Results
 
@@ -224,25 +231,58 @@ Infants cry and breastfeed; mothers yell, talk on the phone, work on computers, 
 The PIs verified the efficiency of the new custom tablet app for collecting questionnaire data. 
 Mothers appeared comfortable with all procedures, including the video home tour. 
 The PIs found wide variation in home "disarray," suggesting parents present homes as they would for any other casual visitor. 
-27 of 28 mothers agreed to share data. 
+**27 of 28 mothers agreed to share data**. 
 Pilot testing verified the feasibility of collecting all data in < 2 hours.
 So, with 1-2 hours of round-trip travel time, the entire data collection can be completed in < 4 hours.
 
-For space reasons, we only summarize here the ambient sound level data and depictions of the foundational video coding passes.
+### Demographic and self-report measures
+
+Due to technical difficulties with the tablet app, we are only able to report demographic and self-report data from $n=$ 18 families.
+
+```{r summarize-infant-birth}
+cb <- read_csv("csv/child-birth.csv")
+cb$birth_weight_g <- (cb$birth_weight_pounds + cb$birth_weight_ounces/16)*435.92
+bw.sum <- round(fivenum(cb$birth_weight_g), 0)
+```
+
+Infants had largely uncomplicated, healthy births. Birth weights (in g) ranged from `r bw.sum[1]` to `r bw.sum[5]` (mean = `r mean(bw.sum)` g); `r length(with(cb, table(newborn_complications)))` had birth complications (e.g., C-section, preeclampsia).
+
+```{r clean-up-cb}
+# Clean-up to save memory
+rm(cb)
+```
+
+```{r summarize-family}
+fam <- read_csv("csv/family.csv")
+mom.ed.yrs <- with(fam, table(mom_education))
+partner.ed.yrs <- with(fam, table(partner_education))
+cohab.w.partner <- with(fam, table(partner_cohabitate))
+mom.working <- with(fam, table(mom_working))
+partner.working <- with(fam, table(partner_working))
+```
+Mothers reported having between `r min(fam$mom_education, na.rm = TRUE)` and `r max(fam$mom_education, na.rm = TRUE)` years of education, ($M=$ `r round(mean(fam$mom_education, na.rm = TRUE),1)`) and `r sum(mom.working[c('ft', 'pt')])` were working at least part time.
+Sixteen of the eighteen repondents reported a partner cohabitating with the family.
+The partner's education level ranged from `r min(fam$partner_education, na.rm = TRUE)` and `r max(fam$partner_education, na.rm = TRUE)` years of education, ($M=$ `r round(mean(fam$partner_education, na.rm = TRUE), 1)`) and `r sum(partner.working['ft'])` were working at least part time.
+
+```{r summarize-language-exposure}
+lang.exp <- read.csv("csv/language-exposure.csv")
+span.to.child <- with(lang.exp, table(language, exposure_context))['Spanish', 'to_child']
+span.in.childcare <- with(lang.exp, table(language, exposure_context))['Spanish', 'childcare']
+non.english <- with(lang.exp, (table(id, language)))[,c('Armenian', 'Other', 'French', 'Hindi', 'Spanish', 'Polish', 'Russian')]
+# Clean-up to save memory
+#rm(lang.exp)
+```
+All of the infants were exposed to and spoken to in English in the home.
+Many were spoken to or had exposure to languages other than English.
+At home `r span.to.child` infants were spoken to in Spanish; `r span.in.childcare` infants were exposed to Spanish in a childcare setting.
+Other children were exposed to Armenian, French, Hindi, Polish, and Russian in the childcare setting.
+Six children in this sample were exposed to English only.
 
 ### Ambient sound levels
 
-```{r load-sound-data}
-
-```
-
-```{r plot-sound-data}
-
-```
+Figure \@ref{fig:plot-sound-avg-db} shows the average ambient sound levels recorded from the sites during an hour of recording, and Figure \@ref{fig:plot-sound-peak-db} shows the peak ambient sound levels.
 
 ### Video coding
-
-
 
 ## Discussion
 
@@ -258,71 +298,20 @@ The same publicly-accessible wiki \cite{PLAY-wiki} will be used to document all 
 
 ### Participants
 
-```{r download-demographic-data}
-counties <- read.csv(paste0(csv.dir, "city-state-county.csv"), stringsAsFactors = FALSE)
+```{r update-collecting-counties}
+play.pis %>%
+  filter(Collection_role == "Collecting") ->
+  collecting.pis
 
-data("county.regions")
-counties <- left_join(counties, county.regions)
-demog <- get_county_demographics(endyear=2013, span=5)
-county.demo <- left_join(counties, demog)
-
-# Recapitalize county
-county.demo$County <- unlist(lapply(county.demo$County, Cap_all))
+n.states.collecting <- length(unique(collecting.pis$State))
 ```
 
-```{r planned-enrollment-by-race}
-county.demo %>%
-  filter(Collecting == "Collecting") %>%
-  arrange(US.Region, Site.code, State, County) %>%
-  select(US.Region, Site.code, State, County, total_population,
-         percent_white, percent_black, percent_asian,
-         percent_hispanic, multi) -> 
-  county.race.ethnicity
-```
-
-```{r PLAY-race-plot}
-county.demo %>%
-  select(US.Region, percent_black, percent_hispanic, percent_asian, percent_white) %>%
-  gather(key = race, value = pop.percent, percent_black:percent_white) ->
-county.pop.percent
-
-county.pop.percent$race <- recode(county.pop.percent$race, 
-                                  percent_black = "Black", 
-                                  percent_hispanic = "Hispanic",
-                                  percent_asian = "Asian",
-                                  percent_white = "White")
-
-county.pop.percent %>%
-  ggplot() +
-  aes(y = pop.percent, x = race, fill = race, color = race) +
-  geom_point(size = 2) +
-  theme_classic() +
-  theme(legend.position = "none",
-        axis.title = element_text(size = rel(1.5), face ="bold"),
-        axis.text = element_text(size = rel(1.2)))
-```
-
-```{r PLAY-econ-plot}
-county.demo %>%
-  ggplot() +
-  aes(x = per_capita_income) +
-  geom_histogram() +
-  theme_classic() +
-  theme(axis.title = element_text(size = rel(1.5), face ="bold"),
-        axis.text = element_text(size = rel(1.2))) +
-  xlab("Median per capita income")
-```
-
-```{r PLAY-ed-plot}
-# Plot education
-```
-
-We plan to collect data from $n=900$ infant-mother dyads from 30 different communities in 17 states located around the U.S.
+We plan to collect data from $n=900$ infant-mother dyads from at least 30 different communities in `r n.states.collecting` states located around the U.S.
 Each site will collect data from 30 infants, 10 each at 12-, 18-, and 24-months of age (+/- 1 week), with equal numbers of females and males. Figure \@ref(fig:PLAY-sitemap) shows the proposed data collection sites and non-collecting, data coding and analysis sites.
 
 While not designed to be nationally representative, the data collection sites are diverse in aggregate, based on Census data.
-\@ref(fig:PLAY-race-plot) shows the proportion of African American, Hispanic/Latino, and Asian residents in the counties surrounding the collection sites from which participating researchers will recruit.
-Figure \@ref(fig:PLAY-econ-plot) and Figure \@ref(fig:PLAY-ed-plot) show economic and educational attainment indicators.
+Figure \@ref(fig:PLAY_race) shows the proportion of African American, Hispanic/Latino, and Asian residents in the counties surrounding the collection sites from which participating researchers will recruit.
+Figures \@ref(fig:PLAY-econ-plot) and \@ref(fig:PLAY-ed-plot) show economic and educational attainment indicators.
 Data collection sites will have soft, advisory recruiting targets based on these sorts of measures for their individual communities.
 
 To gather Census data reproducibly, we used the `chorplethr` package to download data from the Census Bureau's public API.

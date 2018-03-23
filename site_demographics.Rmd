@@ -54,6 +54,8 @@ county.pop.percent$race <- recode(county.pop.percent$race,
                                   percent_asian = "Asian",
                                   percent_white = "White")
 
+county.pop.percent <- county.pop.percent %>%
+  mutate(state.cty = paste0(County, ", ", State)) 
 ```
 
 ```{r race-plot, fig.cap="Racial characteristics of proposed PLAY collection sites"}
@@ -61,7 +63,7 @@ county.pop.percent %>%
   ggplot() +
   aes(y = pop.percent, x = race, fill = race, 
       color = race, group = County) +
-  geom_line(color = "black", linetype = 3) +
+  geom_line(color = "black", linetype = 1, alpha = 0.2) +
   geom_point(size = 3) +
   ylab("Proportion of population") +
   theme_classic() +
@@ -69,6 +71,71 @@ county.pop.percent %>%
         axis.title = element_text(size = rel(1.5), face ="bold"),
         axis.text = element_text(size = rel(1.2)))
 ```
+
+```{r race-by-county-plot-prep}
+plot.demo.by.state.cty <- function(d, region = "East") {
+  d %>%
+    filter(US.Region == region) %>%
+    ggplot() +
+    aes(x = state.cty, y = pop.percent, fill = race) +
+    geom_col() +
+    coord_flip() +
+    theme_classic() +
+    theme(legend.position = "bottom",
+        axis.title = element_text(size = rel(1.5), face ="bold"),
+        axis.text = element_text(size = rel(1.2)),
+        axis.text.x = element_text(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank())  
+}
+```
+
+```{r race-by-county-east-plot}
+plot.demo.by.state.cty(county.pop.percent, "East")
+```
+
+```{r race-by-county-west-plot}
+plot.demo.by.state.cty(county.pop.percent, "West")
+```
+
+```{r race-by-county-south-plot}
+plot.demo.by.state.cty(county.pop.percent, "South")
+```
+
+```{r race-by-county-midwest-plot}
+plot.demo.by.state.cty(county.pop.percent, "Midwest")
+```
+
+```{r race-by-county-all-regions-plot}
+county.demo %>%
+  mutate(p.white = percent_white) %>%
+  select(State, County, p.white) ->
+  p.white.sortlist
+
+left_join(county.pop.percent, p.white.sortlist) %>%
+  arrange(p.white) %>%
+  mutate(state.cty = factor(state.cty, unique(state.cty))) %>%
+  ggplot() +
+  aes(x = state.cty, y = pop.percent, fill = race) +
+  geom_col() +
+  coord_flip() +
+  theme_classic() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size = rel(1.2)),
+        axis.title = element_text(size = rel(1.5), face ="bold"),
+        axis.text = element_text(size = rel(.5)),
+        axis.text.x = element_text(),
+        axis.title.y = element_blank()) +
+    ylab("Proportion of population")
+```
+
+```{r race-table}
+county.pop.percent %>%
+  group_by(Site.code, State, County) %>%
+  summarize(tot.p = sum(pop.percent))
+```
+
 
 ```{r income-plot, fig.cap="Median per capita income at projected PLAY collection sites"}
 county.demo %>%
@@ -182,4 +249,36 @@ ed.attain.by.county %>%
   theme(legend.position = "none",
         axis.title = element_text(size = rel(1.5), face ="bold"),
         axis.text = element_text(size = rel(1.2)))
+
+
 ```
+
+```{r ed-attain-bars-plot}
+
+ed.attain.by.county %>%
+  gather(key = ed.level, value = proportion.pop, -County) %>%
+  mutate(ed.level = ordered(ed.level, levels = rev(c("<HS", "HS", "HS+", "BA+")))) ->
+  ed.attain.gathered
+
+ed.attain.by.county %>%
+  select(County, `BA+`) ->
+  p.ba.sortlist
+
+left_join(ed.attain.gathered, p.ba.sortlist) %>%
+  arrange(`BA+`) %>%
+  mutate(County = factor(County, unique(County))) %>%
+  ggplot() +
+  aes(x = County, y = proportion.pop, fill = ed.level) +
+  geom_col() +
+  coord_flip() +
+  theme_classic() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size = rel(1.2)),
+        axis.title = element_text(size = rel(1.5), face ="bold"),
+        axis.text = element_text(size = rel(.5)),
+        axis.text.x = element_text(),
+        axis.title.y = element_blank()) +
+    ylab("Proportion of population")
+```
+

@@ -1,5 +1,5 @@
 ---
-title             : "Examining play and learning across a year: The PLAY Project"
+title             : "Big data about little people: The Play & Learning Across a Year (PLAY) Project"
 shorttitle        : "PLAY Project"
 
 author: 
@@ -43,7 +43,7 @@ abstract: |
 keywords          : "keywords"
 wordcount         : "X"
 
-bibliography      : ["r-references.bib"]
+bibliography      : ["bib/r-references.bib", "bib/play.bib"]
 
 figsintext        : no
 figurelist        : no
@@ -111,7 +111,7 @@ Behavior lies at the heart of developmental science1, and video is a uniquely po
 Video documents the microstructure of behavior in real time and global patterns of change over development4,5—a 12-month-old’s single-word reference to a dog versus a 24-month- old’s multi-word declarative (“big doggie eat”). 
 Video chronicles who did what, and how, when, and where they did it6—whether the dog was big, eating, jumping, or barking, whether the child looked at the dog, touched the dog, shied away from or approached the dog, and expressed interest, fear, or joy.
 
-The overarching goal of the PLAY (Play & Learning Across a Year) project is to exploit the power of video to catalyze discovery and transform knowledge about behavioral development in infancy. 
+The overarching goal of the PLAY (Play & Learning Across a Year) project [@Adolph_KE_Gilmore_RO_Tamis-LeMonda_CT_undated-bf; @Adolph2018-wc] is to exploit the power of video to catalyze discovery and transform knowledge about behavioral development in infancy. 
 The project capitalizes on the NICHD/NSF-funded Databrary video-sharing library7 and the Datavyu video-coding tool8 developed by Adolph and Gilmore [@databrary-cites], and the joint expertise of 65 PLAY “launch group” researchers in the United States and Canada. 
 To do so, we will create the first, large-scale, sharable and reusable, transcribed, coded, and curated video corpus of human behavior. 
 And we will advance new video-based means of documentation to increase transparency and reproducibility in behavioral science.
@@ -136,7 +136,7 @@ n.states <- length(unique(play.pis$State))
 Planning began in late 2015. 
 Adolph, Tamis-LeMonda and Gilmore (PLAY PIs) invited researchers to join the launch group based on their interest in open science and infant-mother natural activity in the home, willingness to collaborate on data collection and coding, lab location, and domains of expertise (language, gesture, play, object exploration, tool use, locomotion, posture, physical activity, emotion, temperament, parent responsiveness, gender, home environment, media use, spatial demography, and sampling). 
 Nearly every invitee agreed. 
-The current launch group consists of `r n.pis` from `r n.institutions` from `r n.states`. `r round(with(play.pis, table(New)/sum(table(New)))*100, 0)[1]`% are new investigators, `r round(with(play.pis, table(Gender)/sum(table(Gender)))*100, 0)[1]`% women, `r round(with(play.pis, table(Race_eth)/sum(table(Race_eth)))*100, 0)[1]` non-white, from varied institutions (public and private universities and colleges, hospitals, agencies) with varied resources (`r sum(round(with(play.pis, table(Institution_Type)/sum(table(Institution_Type)))*100, 0)[1:3])` public universities, `r round(with(play.pis, table(R15_eligible)/sum(table(R15_eligible)))*100, 0)[1]`% R15-eligible institutions) across the United States and Canada. 
+The current launch group consists of `r n.pis` from `r n.institutions` institutions and `r n.states` states. `r round(with(play.pis, table(New)/sum(table(New)))*100, 0)[1]`% are new investigators, `r round(with(play.pis, table(Gender)/sum(table(Gender)))*100, 0)[1]`% women, `r round(with(play.pis, table(Race_eth)/sum(table(Race_eth)))*100, 0)[1]` non-white, from varied institutions (public and private universities and colleges, hospitals, agencies) with varied resources (`r sum(round(with(play.pis, table(Institution_Type)/sum(table(Institution_Type)))*100, 0)[1:3])` public universities, `r round(with(play.pis, table(R15_eligible)/sum(table(R15_eligible)))*100, 0)[1]`% R15-eligible institutions) across the United States and Canada. 
 
 To distribute the burden of video coding across researchers, the PLAY PIs recruited 10+ experts for each of four core coding passes—communication, object interaction, locomotion, and emotion. 
 These domains represent key areas of development and provide foundational information when time-locked to video. 
@@ -201,8 +201,8 @@ All were from the New York City area.
 
 ### Procedure
 
-A publicly-accessible wiki [@PLAY-wiki] was used to document all procedures and code definitions.
-The wiki50 links descriptions of every aspect of the protocol with exemplar third-person video clips (e.g., researcher scheduling home visit). 
+A publicly-accessible wiki [@Soska2016-yo] was used to document all procedures and code definitions.
+The wiki links descriptions of every aspect of the protocol with exemplar third-person video clips (e.g., researcher scheduling home visit). 
 The wiki will also link descriptions of each code to video clips illustrating the types of behaviors that do and do not satisfy the coding criteria. 
 These ways of using video as documentation are innovative, yet simple and inexpensive to produce, and will serve as a proof of concept for increasing transparency and reproducibility.
 

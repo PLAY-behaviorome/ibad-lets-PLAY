@@ -34,11 +34,11 @@ author_note: |
   We acknowledge support from the National Science Foundation (BCS-1238595), the Eunice Kennedy Shriver National Institute for Child Health and Human Development (U01-HD-076595), the Society for Research in Child Development, the Alfred P. Sloan Foundation, and the LEGO Foundation.
 
 abstract: |
-  Piaget9, Montessori10, and Bruner11,12, observed that play is the work of infants.
-  The overall goal of the PLAY (Play & Learning Across a Year) project is to catalyze discovery about the form and dynamics of this essential work across a critical period from 12 to 24 months of age when infants show remarkable advances in language, object interaction, locomotion, and emotion regulation.
-  PLAY will leverage the joint expertise of 65 “launch group” researchers, and capitalize on the Databrary video-sharing library and Datavyu video-coding tool to exploit the power of video to reveal the richness and complexity of behavior. 
-  These researchers will collect, transcribe, code, share, and exploit a video corpus of infant and mother naturalistic activity in the home to test behavioral, developmental, and environmental cascades. 
-  The project will demonstrate the value and feasibility of a cross-domain synergistic approach to infant research while advancing new ways to use video as data and documentation to facilitate discovery and ensure transparency.
+  Piaget, Montessori, and Bruner observed that play is the work of infants.
+  The PLAY (Play & Learning Across a Year) project seeks to catalyze discovery about the form and dynamics of this essential work across a critical period from 12 to 24 months of age when infants show remarkable advances in language, object interaction, locomotion, and emotion regulation.
+  PLAY will leverage the joint expertise of 65 “launch group” researchers and capitalize on the Databrary video-sharing library and Datavyu video-coding tool to exploit the power of video to reveal the richness and complexity of behavior. 
+  The PLAY researchers will collect, transcribe, code, share, and exploit a video corpus of infant and mother naturalistic activity in the home to test hypotheses about behavioral, developmental, and environmental cascades. 
+  In turn, the project will demonstrate the value and feasibility of a cross-domain synergistic approach to infant research while advancing new ways to use video as data and documentation to facilitate discovery and ensure transparency.
   
 keywords          : "keywords"
 wordcount         : "X"
@@ -107,22 +107,17 @@ config_db()
 csv.dir <- "csv/"
 ```
 
-Behavior lies at the heart of developmental science1, and video is a uniquely powerful tool for capturing the richness and complexity of behavior2,3. 
-Video documents the microstructure of behavior in real time and global patterns of change over development4,5—a 12-month-old’s single-word reference to a dog versus a 24-month- old’s multi-word declarative (“big doggie eat”). 
-Video chronicles who did what, and how, when, and where they did it6—whether the dog was big, eating, jumping, or barking, whether the child looked at the dog, touched the dog, shied away from or approached the dog, and expressed interest, fear, or joy.
+Behavior lies at the core of developmental science [@Gibson1994-kb].
+It is a uniquely powerful tool for capturing the richness and complexity of behavior [@Adolph_undated-od; @Gilmore2017-eh], documenting its microstructure in real time and global patterns of change over development [@Gesell1991-sx; @Gesell1946-qr]. 
+Video chronicles who did what, and how, when, and where they did it [@Gilmore2016-wl; @Gilmore_undated-tp; Adolph2017-ac].
+Most infancy researchers collect video as primary data or as a backup to online coding procedures, but until recently, few have openly shared video because of ethical and technical challenges.
+As those challenges recede and the culture of developmental science begins to embrace more open, transparent, and reproducible practices [@many-babies], the time is ripe to capitalize on the unique power of video to catalyze discovery and transform knowledge about behavioral development in infancy.
 
-The overarching goal of the PLAY (Play & Learning Across a Year) project [@Adolph_KE_Gilmore_RO_Tamis-LeMonda_CT_undated-bf; @Adolph2018-wc] is to exploit the power of video to catalyze discovery and transform knowledge about behavioral development in infancy. 
-The project capitalizes on the NICHD/NSF-funded Databrary video-sharing library7 and the Datavyu video-coding tool8 developed by Adolph and Gilmore [@databrary-cites], and the joint expertise of 65 PLAY “launch group” researchers in the United States and Canada. 
-To do so, we will create the first, large-scale, sharable and reusable, transcribed, coded, and curated video corpus of human behavior. 
-And we will advance new video-based means of documentation to increase transparency and reproducibility in behavioral science.
-
-We named the project “PLAY” and use “unstructured play” and “everyday play” to broadly refer to infants’ natural activities while awake. 
-To paraphrase Piaget9, Montessori10, and Bruner11,12, play is the work of infants.
-It is an approach to action, not a particular form of activity.
-Some of infants’ play involves toys and some play is joyful and goal directed, but all of their spontaneous vocalizations, interactions with objects and people, and locomotor bouts involve exploration and opportunities for learning and growth, regardless of affect or intent.
-
-The project has three aims: 1. To create the first cross-domain, large-scale, transcribed, coded, and curated video corpus of human behavior—collected with a common protocol and coded with common criteria; 2. To answer fundamental questions about behavioral and developmental cascades; and 3. To demonstrate the scientific value, feasibility, and scalability of a synergistic approach to collaborative research, and advance new ways to use video as documentation to ensure transparency and reproducibility.
-In this paper, we describe the process of planning PLAY, our preliminary results from a pilot study, and plans for a larger scale implementation.
+The Play & Learning Across a Year (PLAY) project [@Adolph_KE_Gilmore_RO_Tamis-LeMonda_CT_undated-bf; @Adolph2018-wc] builds on the NICHD/NSF-funded Databrary video-sharing library [@Gilmore2016-ev; @databrary-site] and the Datavyu  video-coding tool [@datavyu-site; @Adolph2015-oy]  developed and supported by Adolph and Gilmore, and it unites the joint expertise of 65 PLAY “launch group” researchers in the United States and Canada. 
+PLAY will create the first-of-its-kind, large-scale, openly shared, readily reusable, transcribed, coded, and curated video corpus of human behavior. 
+In addition, PLAY seeks to advance new video-based means of research documentation that hold promise to increase transparency and bolster reproducibility [@Adolph2017-ac, @Gilmore2017-eh] across the behavioral sciences.
+<!-- The project has three aims: 1. To create the first cross-domain, large-scale, transcribed, coded, and curated video corpus of human behavior—collected with a common protocol and coded with common criteria; 2. To answer fundamental questions about behavioral and developmental cascades; and 3. To demonstrate the scientific value, feasibility, and scalability of a synergistic approach to collaborative research, and advance new ways to use video as documentation to ensure transparency and reproducibility. -->
+In this paper, we describe the process of planning PLAY, our preliminary results from a small pilot study, and plans for a larger scale implementation we expect to launch in late 2018.
 
 # Project Planning
 
@@ -133,42 +128,48 @@ n.institutions <- length(unique(play.pis$Institution))
 n.states <- length(unique(play.pis$State))
 ```
 
-Planning began in late 2015. 
+We named the project “PLAY” and use the terms “unstructured play” and “everyday play” to broadly refer to infants’ natural activities while awake. 
+To paraphrase Piaget [@Piaget1967-nl], Montessori [@Montessori1984-la], and Bruner [@Bruner1975-sp; @Bruner1976-ab], play is the work of infants.
+It is an approach to action, not a particular form of activity.
+Some of infants’ play involves toys and some play is joyful and goal directed, but all of their spontaneous vocalizations, interactions with objects and people, and locomotor bouts involve exploration and opportunities for learning and growth, regardless of affect or intent.
+
+Planning began in late 2015.
 Adolph, Tamis-LeMonda and Gilmore (PLAY PIs) invited researchers to join the launch group based on their interest in open science and infant-mother natural activity in the home, willingness to collaborate on data collection and coding, lab location, and domains of expertise (language, gesture, play, object exploration, tool use, locomotion, posture, physical activity, emotion, temperament, parent responsiveness, gender, home environment, media use, spatial demography, and sampling). 
-Nearly every invitee agreed. 
-The current launch group consists of `r n.pis` from `r n.institutions` institutions and `r n.states` states. `r round(with(play.pis, table(New)/sum(table(New)))*100, 0)[1]`% are new investigators, `r round(with(play.pis, table(Gender)/sum(table(Gender)))*100, 0)[1]`% women, `r round(with(play.pis, table(Race_eth)/sum(table(Race_eth)))*100, 0)[1]` non-white, from varied institutions (public and private universities and colleges, hospitals, agencies) with varied resources (`r sum(round(with(play.pis, table(Institution_Type)/sum(table(Institution_Type)))*100, 0)[1:3])` public universities, `r round(with(play.pis, table(R15_eligible)/sum(table(R15_eligible)))*100, 0)[1]`% R15-eligible institutions) across the United States and Canada. 
+Nearly every invitee agreed.
+The current launch group consists of `r n.pis` from `r n.institutions` institutions and `r n.states` states. `r round(with(play.pis, table(New)/sum(table(New)))*100, 0)[1]`% are new investigators, `r round(with(play.pis, table(Gender)/sum(table(Gender)))*100, 0)[1]`% women, `r round(with(play.pis, table(Race_eth)/sum(table(Race_eth)))*100, 0)[1]` non-white, from varied institutions (public and private universities and colleges, hospitals, agencies) with varied resources (`r sum(round(with(play.pis, table(Institution_Type)/sum(table(Institution_Type)))*100, 0)[1:3])` public universities, `r round(with(play.pis, table(R15_eligible)/sum(table(R15_eligible)))*100, 0)[1]`% R15-eligible institutions) across the United States and Canada.
 
-To distribute the burden of video coding across researchers, the PLAY PIs recruited 10+ experts for each of four core coding passes—communication, object interaction, locomotion, and emotion. 
-These domains represent key areas of development and provide foundational information when time-locked to video. 
-Compared with other behaviors (e.g., visual attention), they are quick, easy, and reliable to code.
+To distribute the burden of video coding across researchers, we recruited 10+ experts to shape the development of coding passes in four fundamental domains--communication, object interaction, locomotion, and emotion.
+These domains represent key areas of infant development and provide foundational information for future discovery when time-locked to video.
+Compared with other behaviors (e.g., visual attention), these are quick, easy, and reliable to code.
+Experts in language and communication  transcribe all mother speech and infant vocalizations in formats exportable to CHILDES [@MacWhinney2000-yn]. 
+These codes should be informative even to non-experts and are designed to facilitate further discovery through subsequent coding passes that build on the prior work. 
+Temporally aligned transcriptions and codes should enable researchers with expertise in any domain to analyze cascades within and among these behaviors.
 
-Through a yearlong series of telephone conversations with each launch group member and 12 group webinars [@webinar-volume], we jointly developed a common sampling method and protocol (including materials, technical specifications, questionnaires, and non-video measures), designed common video codes, and established an infrastructure to divide responsibilities between PLAY staff and launch group. 
-We achieved consensus, with input from NICHD program staff, about all aspects of PLAY at a daylong workshop shared on Databrary56, at NIH in Dec 2016.
+Through a yearlong series of telephone conversations with each launch group member and 12 group webinars [@PLAY-webinar-Databrary], we jointly developed a common sampling method and protocol (including materials, technical specifications, questionnaires, and non-video measures), designed common video codes, and established an infrastructure to divide responsibilities between PLAY staff and launch group.
+We achieved consensus, with input from NICHD program staff, about all aspects of PLAY at a daylong workshop at NIH in December 2016, materials from which are shared on Databrary [@PLAY-workshop-Databrary].
 
 The launch group jointly decided that the centerpiece of PLAY would be 900 one-hour videos of infant-mother dyads during natural play in the home. 
-Home videos are widely believed to be representative of natural activity, and provide a stark contrast to the 2- to 20-minute "snapshots" typical of standard structured lab tasks. 
-Based on their extensive experience with naturalistic home observations43,44,46,57-61, launch group members determined that one hour is sufficiently long to capture an ecologically valid window into infant and mother natural behaviors. 
+Home videos are widely believed to be representative of natural activity, and provide a stark contrast to the 2- to 20-minute "snapshots" typical of standard structured lab tasks.
+Based on their extensive experience with naturalistic home observations [@Karasik2011-mf; @Karasik2014-cd; @De_Barbaro2015-bp; @Karasik2012-jq; @Karasik2015-mi; @Soderstrom2013-xn; @Rowe2012-vy; @Fausey2016-kx; @Iverson2007-yr], launch group members determined that one hour is sufficiently long to capture an ecologically valid window into infant and mother natural behaviors.
 Longer recording times produce diminishing returns, risk infants becoming excessively tired or hungry, and increase the cost and burden to families and researchers.
 
-Given the cost of going to families’ homes, the launch group also determined that we should augment natural play with a set of additional video, questionnaire, and non-video measures, that together would add only ~45 minutes to the home visit. 
+Given the cost of going to families’ homes, the launch group also determined that we should augment recordings of natural play with a set of additional video, questionnaire, and non-video measures, that together would add only ~45 minutes to the home visit. 
 This would enable researchers to test whether variations in natural play, or in characteristics of distal and proximal environments, predict infant and mother behaviors when materials and conditions are held constant. 
 Thus, the solitary and dyadic play tasks are of interest in their own right, and might also serve as correlates in tests of experiential and environmental influences.
 
 To obtain objective data on stable home conditions (cracks in walls, broken windows, ceiling stains, safety issues, etc.), physical layout (furniture, clutter, space to move, etc.), educational and electronic media (writing/drawing materials, TVs, computers, etc.), and gendered characteristics of infants’ room, toys, and clothes, we decided to conduct video home tours.
-Launch group experts also expressed interest in understanding whether clothing and footgear affect infants’ locomotion and physical activity, and each takes only moments to video record. 
-Clothing/footgear videos can reveal gendered features (bows/frills, superhero emblems, patent leather shoes, army boots)66 and influences on spontaneous activity and locomotion67.
+Launch group experts also expressed interest in understanding whether clothing and footgear affect infants’ locomotion and physical activity, and each takes only moments to video record.
+Clothing/footgear videos can reveal gendered features (bows/frills, superhero emblems, patent leather shoes, army boots)66 and influences on spontaneous activity and locomotion [@Cole2012-vr].
 The launch group also deemed important a variety of questionnaire measures of infant skills, experiences, and home environment: mothers’ report of infants’ vocabulary, locomotor milestones and falls, temperament, and use of gender labels; mother’s report of family demographics, media use, health, and home chaos; and a researcher-completed survey on physical characteristics of the home. 
-The PIs developed a custom tablet-based app to collect these questionnaire data efficiently, limit data input errors, use a stylus for flexible data entry, and allow automatic transfer to permanent storage on Databrary. 
+The PIs developed a custom tablet-based app to collect these questionnaire data efficiently, limit data input errors, use a stylus for flexible data entry, and allow automatic transfer to permanent storage on Databrary.
 The launch group devised methods to measure room size with a commercial laser device and ambient noise level with a commercial decibel meter.
-
-Finally, with input from the launch group, we decided to transcribe all mother speech and infant vocalizations in formats exportable to CHILDES. 
-The launch group also developed “foundational,” time-locked codes of infant and mother behaviors in four core domains (communication/gesture, object interaction, locomotion, emotion). 
+Finally, with input from the launch group, we decided to transcribe all mother speech and infant vocalizations in the CHAT format exportable to CHILDES [@MacWhinney2000-yn]. 
 These codes should be informative even to non-experts and are designed to facilitate further discovery through subsequent coding passes that build on the prior work. 
 Temporally aligned transcriptions and codes should enable researchers with expertise in any domain to analyze cascades within and among these behaviors.
 
 # Pilot Study
 
-Based on the launch group's recommendations, we carried out a pilot study to test the feasibility of the approach.
+Based on the launch group's recommendations, we carried out a pilot study in the New York City area to test the feasibility of the approach.
 
 ## Methods
 
@@ -195,49 +196,60 @@ rm(vol.444)
 ```
 
 A total of $n=$ `r n.subs` infants were tested, $n=$ `r sum(age.by.gender[,1])` 12-month-olds (`r age.by.gender[1,1]` female), $n=$ `r sum(age.by.gender[,2])` 18-month-olds (`r age.by.gender[1,2]` female), and $n=$ `r sum(age.by.gender[,3])` (`r age.by.gender[1,3]` female) 24-month-olds. 
-All were from the New York City area. 
+
+We chose these ages because 12- to 24-months represents a period of important, rapid growth when children begin talking, using objects in symbolic play, walking, and regulating emotions. 
+For example, by 12 months, about half of infants can walk and half still crawl. 
+By 18 months, infants are proficient walkers, and by 24 months, they can run, walk backwards, and walk up stairs [@Robinson2015-qe; @Onis2006-le]. 
+Around 12 months, infants produce their first words. 
+By 18 months, most display a vocabulary spurt, and by 24 months infants combine words into simple sentences13,14 [@Bloom1995-xb; @Hoff2013-er]. 
+But these ages represent only group averages; individual infants show tremendous variability in these behaviors at each age.
+
+All infants recruited were from the New York City area. 
 `r Init_cap(numbers2words(n.white))` infants were White, `r numbers2words(n.asian)` was Asian, `r numbers2words(n.multi)` reported more than one race, and `r numbers2words(n.unreported)` did not report a race.
 `r Init_cap(numbers2words(n.hispanic))` were of Hispanic or Latino ethnicity.
 
 ### Procedure
 
 A publicly-accessible wiki [@Soska2016-yo] was used to document all procedures and code definitions.
-The wiki links descriptions of every aspect of the protocol with exemplar third-person video clips (e.g., researcher scheduling home visit). 
-The wiki will also link descriptions of each code to video clips illustrating the types of behaviors that do and do not satisfy the coding criteria. 
-These ways of using video as documentation are innovative, yet simple and inexpensive to produce, and will serve as a proof of concept for increasing transparency and reproducibility.
+The wiki links descriptions of every aspect of the protocol with exemplar third-person video clips (e.g., researcher scheduling home visit) to demonstrate typical procedures. 
+The wiki links text-based descriptions of each code to video clips illustrating the types of behaviors that do and do not satisfy the coding criteria.
+<!-- Many video-using researchers create codebooks and coding manuals, but this is the first time the authors have used video to augment these documents. -->
+<!-- These ways of using video as documentation are simple, inexpensive to produce, have helped us increase transparency and reproducibility of critical components of the project. -->
+<!-- The wiki aids staff training and ensures fidelity to the protocol and codes.  -->
+<!-- The wiki documents the entire data collection protocol, all video-based measures including transcription and code definitions, and all questionnaire and non-video measures.  -->
+<!-- It uses photos and video exemplars to make text-based descriptions clear and transparent.  -->
+<!-- The wiki makes cross-site training consistent and cost-efficient and ensure that future researchers can reproduce our protocol with high fidelity. -->
 
-The wiki aids training, ensure fidelity to the protocol and codes, and provide complete transparency (Figure 2). 
-The wiki documents the entire data collection protocol, all video-based measures including transcription and code definitions, and all questionnaire and non-video measures. 
-It uses photos and video exemplars to make text-based descriptions clear and transparent. 
-The wiki makes cross-site training consistent and cost-efficient and ensure that future researchers can reproduce our protocol with high fidelity.
-
-The PIs also established that transcription in English or Spanish takes 7-9 hours per hour of video. 
-All four foundational coding passes are easy to learn (by undergraduate coders on Datavyu) and time efficient (< 3 hours for both infant and mother for each coding pass per hour of video). 
-Note, both infant and mother communicative acts and gestures together take < 3 hours to code.
         
 ### Data analysis
 
 For this report, we used `r cite_r("r-references.bib")` for all of our statistical analyses.
-Datavyu [@datavyu] was used for video coding.
-All code used in data analysis and for this manuscript may be found in the GitHub repository associated with the paper [@ibad-play-ms].
+Datavyu [@datavyu-site] was used for video coding.
+All code used in data analysis and for this manuscript may be found in the GitHub repository associated with the paper [@ibad-PLAY-github].
 
 To compute inter-observer reliability, we ran scripts in Datavyu to selects a random segment of video (25% or 5 mins) from each 20- minute segment of natural play. 
 Inter-observer reliability for the pilot videos was 96.7%-99.3% exact frame agreement ($\kappa$s > .93, $ps$ < .001) for duration codes (object interactions, locomotion, emotion) and 94.1%- 99.5% code agreement ($\kappa$s > .89, $ps$ < .001) for categorical events (communicative acts, gesture).
 
 ## Results
 
-Informal inspection of the videos verified that dyads were unaffected by the presence of the researcher: After a few minutes of acclimation prior to natural play, mothers and infants ignore the researcher. 
-Infants cry and breastfeed; mothers yell, talk on the phone, work on computers, go about daily chores, change infants’ diapers, and give infants snacks. 
-The PIs verified the efficiency of the new custom tablet app for collecting questionnaire data. 
+Informal inspection of the videos verified that dyads were unaffected by the presence of the researcher: After a few minutes of acclimation prior to natural play, mothers and infants ignore the researcher.
+<!-- Infants cry and breastfeed; mothers yell, talk on the phone, work on computers, go about daily chores, change infants’ diapers, and give infants snacks.  -->
+<!-- The PIs verified the efficiency of the new custom tablet app for collecting questionnaire data. -->
 Mothers appeared comfortable with all procedures, including the video home tour. 
-The PIs found wide variation in home "disarray," suggesting parents present homes as they would for any other casual visitor. 
-**27 of 28 mothers agreed to share data**. 
+The PIs found wide variation in home "disarray," suggesting parents present homes as they would for any other casual visitor.
+<!-- **27 of 28 mothers agreed to share data**.  -->
 Pilot testing verified the feasibility of collecting all data in < 2 hours.
-So, with 1-2 hours of round-trip travel time, the entire data collection can be completed in < 4 hours.
+So, with 1-2 hours of round-trip travel time, the entire data collection could be completed in < 4 hours.
+
+All families were asked permission to share data with authorized researchers on Databrary using language adapted from the Databrary release template [@databrary-release].
+Nineteen of the 20 families agreed to share; 3 families agreed to share data only with authorized Databrary researchers and 16 agreed to allow authorized researchers to show clips in public settings for informational or educational purposes.
+
+In carrying out coding on X of the participants' sessions, we established that All four foundational coding passes are easy to learn (by undergraduate coders on Datavyu) and time efficient (< 3 hours for both infant and mother for each coding pass per hour of video).
+Adaptations to Datavyu enable transcription in English or Spanish to take 7-9 hours per hour of video, while infant and mother communicative acts and gestures together take < 3 hours to code.
 
 ### Demographic and self-report measures
 
-Due to technical difficulties with the tablet app, we are only able to report demographic and self-report data from $n=$ 18 families.
+Due to some technical difficulties with pilot versions of the tablet app, we are only able to report here demographic and self-report data from $n=$18 families.
 
 ```{r summarize-infant-birth}
 cb <- read_csv("csv/child-birth.csv")
@@ -245,7 +257,8 @@ cb$birth_weight_g <- (cb$birth_weight_pounds + cb$birth_weight_ounces/16)*435.92
 bw.sum <- round(fivenum(cb$birth_weight_g), 0)
 ```
 
-Infants had largely uncomplicated, healthy births. Birth weights (in g) ranged from `r bw.sum[1]` to `r bw.sum[5]` (mean = `r mean(bw.sum)` g); `r length(with(cb, table(newborn_complications)))` had birth complications (e.g., C-section, preeclampsia).
+Infants had largely uncomplicated, healthy births. 
+Birth weights (in g) ranged from `r bw.sum[1]` to `r bw.sum[5]` (mean = `r mean(bw.sum)` g); `r length(with(cb, table(newborn_complications)))` had birth complications (e.g., C-section, preeclampsia).
 
 ```{r clean-up-cb}
 # Clean-up to save memory
@@ -276,7 +289,7 @@ All of the infants were exposed to and spoken to in English in the home.
 Many were spoken to or had exposure to languages other than English.
 At home `r span.to.child` infants were spoken to in Spanish; `r span.in.childcare` infants were exposed to Spanish in a childcare setting.
 Other children were exposed to Armenian, French, Hindi, Polish, and Russian in the childcare setting.
-Six children in this sample were exposed to English only.
+Six children in this sample were exposed only to English.
 
 ### Ambient sound levels
 
@@ -287,14 +300,15 @@ Figure \@ref{fig:plot-sound-avg-db} shows the average ambient sound levels recor
 ## Discussion
 
 The pilot study verified that the protocol met the launch group's criteria on scientific and practical grounds.
+Four of the full sessions (13, 18, 29, and 20) met all internal criteria benchmarks.
 So we proceeded to design and plan a full-scale implementation.
 
-# Proposed study
+# Planned study
 
 The proposed study builds upon and extends the pilot study.
 
 ## Methods
-The same publicly-accessible wiki \cite{PLAY-wiki} will be used to document all procedures and code definitions.
+A publicly-accessible wiki similar to the one used in the pilot [@Soska2016-yo] will be used to document all procedures and code definitions.
 
 ### Participants
 
@@ -306,27 +320,31 @@ play.pis %>%
 n.states.collecting <- length(unique(collecting.pis$State))
 ```
 
-We plan to collect data from $n=900$ infant-mother dyads from at least 30 different communities in `r n.states.collecting` states located around the U.S.
-Each site will collect data from 30 infants, 10 each at 12-, 18-, and 24-months of age (+/- 1 week), with equal numbers of females and males. Figure \@ref(fig:PLAY-sitemap) shows the proposed data collection sites and non-collecting, data coding and analysis sites.
+We will collect data from $n=900$ infant-mother dyads from at least 30 different communities in `r n.states.collecting` states located around the U.S.
+Each site will collect data from 30 infants, 10 each at 12-, 18-, and 24-months of age (+/- 1 week), with equal numbers of females and males. Figure \@ref(fig:PLAY-sitemap) shows the proposed data collection sites and the non-collecting, data coding and analysis sites.
 
-While not designed to be nationally representative, the data collection sites are diverse in aggregate, based on Census data.
-Figure \@ref(fig:PLAY_race) shows the proportion of African American, Hispanic/Latino, and Asian residents in the counties surrounding the collection sites from which participating researchers will recruit.
-Figures \@ref(fig:PLAY-econ-plot) and \@ref(fig:PLAY-ed-plot) show economic and educational attainment indicators.
-Data collection sites will have soft, advisory recruiting targets based on these sorts of measures for their individual communities.
-
-To gather Census data reproducibly, we used the `chorplethr` package to download data from the Census Bureau's public API.
+While not designed to be nationally representative, the data collection sites are diverse in aggregate based on Census data.
+To gather Census data reproducibly, we used the `choroplethr` package [@R-choroplethr; @R-choroplethrMaps] to download data from the Census Bureau's public API.
 This workflow allows us to easily gather and analyze other Census Bureau data about the communities targeted for sampling.
 
-Families will be two-parent, English and/or Spanish speaking households with resident fathers, with both parents >18 years old. 
-Infants will be term firstborns, without birth complications or disabilities, and 12, 18, or 24 months of age (±1 week); half of infants at each age and site will be boys. 
-We chose these ages because 12- to 24-months represents a period of important, rapid growth when children begin talking, using objects in symbolic play, walking, and regulating emotions. 
-For example, by 12 months, about half of infants can walk and half still crawl. 
-By 18 months, infants are proficient walkers, and by 24 months, they can run, walk backwards, and walk up stairs16,17. 
-Around 12 months, infants produce their first words. By 18 months, most display a vocabulary spurt, and by 24 months infants combine words into simple sentences13,14. 
-But these ages represent only group averages; individual infants show tremendous variability in these behaviors at each age.
+[](figs/race-by-county-all-regions-plot-1.pdf)
 
-The sample is not intended to be nationally representative. 
-The launch group deliberated over several sampling strategies27,69,70. Informed by experts in the launch group, we decided on homogeneous sampling to contain costs and understand behavioral variation. 
+[](figs/per-capita-income-plot-1.pdf)
+
+[](figs/ed-attain-bars-plot-1.pdf)
+
+[](figs/spanish-speaking-plot-1.pdf)
+
+Figure \@ref(fig:PLAY_race) shows the proportion of African American, Hispanic/Latino, and Asian residents in the counties surrounding the collection sites from which participating researchers will recruit.
+Figures \@ref(fig:PLAY-econ-plot) and \@ref(fig:PLAY-ed-plot) show economic and educational attainment indicators, respectively.
+Figure \@ref(fig:spanish) shows the proportion of households speaking only English versus those where Spanish or other languages are spoken, exclusively or in addition to English.
+Data collection sites will have soft, advisory recruiting targets based on these sorts of measures for their individual communities.
+
+Families will be two-parent, English and/or Spanish speaking households with resident fathers, with both parents greater than 18 years of age.
+Infants will be term firstborns, without birth complications or disabilities, and 12, 18, or 24 months of age (±1 week); half of infants at each age and site will be boys. 
+
+The launch group deliberated over several sampling strategies [@Bornstein2013-mr; @#Jager2017-wv; @{DavisKean2017-sr]
+Ultimately, we decided on homogeneous sampling to contain costs and understand behavioral variation. 
 Homogenous sampling maintains some control over sample characteristics through a set of inclusionary criteria (here, firstborn status, English/Spanish home language, term pregnancy, etc.), while maximizing select aspects of diversity (e.g., geography, SES) and retaining sufficient power for group comparisons. 
 We ruled against conventional convenience sampling, which leaves sampling decisions entirely to researchers’ discretion. 
 Although convenience sampling is easy and cost efficient, it risks yielding a sample that varies on too many demographic dimensions to control. 
@@ -354,7 +372,7 @@ If mother is visible, the researcher will capture as much of her face and body a
 A cardioid microphone will amplify infant and mother speech and isolate background noise.
 Home visits avoid the artificiality of unfamiliar lab environments, materials, and tasks, and therefore come closest in fidelity to infant and mother natural behavior. 
 
-We will take several precautions to minimize effects of experimenter and camera presence on dyads72,73. 
+We will take several precautions to minimize effects of experimenter and camera presence on dyads [@McCune-Nicolich1984-tn; @Stevenson1986-zh]. 
 We will train researchers to remain unobtrusive. 
 They will stay at a distance, resist talking to mother or infant, and watch the infant through the viewfinder to avoid eye contact. 
 Filming will begin after several minutes of infant-mother acclimation to the camera and researcher.
@@ -384,7 +402,7 @@ Health (QF1-4): Mothers will report infant, parent, and family demographics, inf
 ### Video coding
 
 Transcriptions and four core coding passes will be scored for both infant and mother.
-PLAY staff will transcribe speech at the utterance level, using standard criteria for segmenting speech74. 
+PLAY staff will transcribe speech at the utterance level, using standard criteria for segmenting speech [@MacWhinney2000-fb]. 
 Utterances will be defined by independent clauses (statements with subject and predicate) with modifiers. Intonation and pauses can also define breaks (e.g., “You like that . Right?” is two utterances). 
 Mothers’ language-like sounds are typed out phonetically. 
 Infant babbles are marked with “b” and non-linguistic vocalizations (cry, laugh, grunt) with “c.” 
@@ -406,7 +424,7 @@ To verify inter-observer reliability, PLAY staff will rescore 25% of each infant
 The launch group will jointly establish best practices for PLAY analyses.
 Our guidelines will include: recommendations to pre-register predictions and analyses; the use of procedures that use one portion of the data set to explore correlations among variables and a separate subsample to confirm it; the use of reproducible and transparent workflows for data processing and analyses (e.g., Ruby scripts in Datavyu; syntax instead of menu-driven commands for SPSS users; scripts and functions for R users); a commitment to openly sharing supplementary video codes and operational definitions to avoid unnecessary duplication of coding efforts; and open sharing of null results as well as positive findings. 
 We will create means for communication (e.g., a Google group) among launch group members who wish to discuss, propose, and organize team efforts focused on answering specific video-based research questions.
-In addition, we intend to report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+In addition, in keeping with emerging standards in research transparency, we will report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
 # General Discussion
 
@@ -416,7 +434,7 @@ Our hope is that it will seed substantial new scholarship.
 Researchers can examine real-time behavioral cascades among infant behaviors, among mother behaviors, and between infants and mothers. 
 They can test whether particular infant behaviors are temporally connected (e.g., vocalizations and gestures) or independent (vocalizations and locomotion). 
 They can test infant-to-mother cascades and vice versa, such as whether infant emotional expressions affect real-time language input from mother. 
-Prior correlational work, for example, shows that infants who express higher quantities of negative emotions display lower levels of language development on the MCDI and later language milestones37,80. 
+Prior correlational work, for example, shows that infants who express higher quantities of negative emotions display lower levels of language development on the MCDI and later language milestones37,80 [@Salley2007-gz; @Bloom1987-md]. 
 But the evidence for these findings offers limited insight into the real-time behaviors that underlie the correlations81. 
 With PLAY, researchers can examine real-time behavioral cascades by testing whether infants’ negative emotions (Table 1 VE1) hinder interactions with objects (Table 1 VO1) and/or vocal and gestural communications (Table 1 VL2-3), and consequently, lead to low quantity and diversity of mother speech (Table 1 VL1-2). 
 Infant emotions could also facilitate language learning: Emotional expressions might elicit mental state terms and emotion words from mothers (e.g., “You think mommy’s leaving?”, “Why are you sad?”). 
@@ -435,8 +453,22 @@ using laser measurements of room dimensions (Table 2 NH2).
 We can relate environmental features of clutter, ambient noise, and so on, to mothers’ speech and infants’ language development. 
 Researchers can expand the lens of environmental influences to consider how distal macro factors, such as family SES and geo-coded data on neighborhood poverty (Table 2 NH5) relate to proximal environmental measures—objects and space in the home—and in turn infant behaviors, mother behaviors, and infant language and skill.
 
-Databrary51, funded by NICHD/NSF, is a digital web-based library for sharing and reusing research videos, clips, and displays. Researchers can reuse shared videos to ask questions beyond the scope of the original study2. They can use shared video clips to learn about procedures and to illustrate findings and displays for teaching3. Sharing is easy. To mitigate the onerous task of curating a dataset after the study is completed, Databrary developed an active curation system. Researchers can use Databrary as a file manager, lab server, and secure backup prior to sharing52. When they are ready to share, they need only click a button. Video contains personally identifiable information, so sharing poses special ethical issues. Advised by ethics experts, IRB and grants/contracts administrators, and legal counsel, Databrary developed a policy framework53,54 for sharing identifiable data based on obtaining participants’ permission to share and restricting access to authorized researchers under the oversight of their institutions. Since the Databrary website went live in 2014, 580+ researchers (including the launch group) and 245+ affiliates from 330+ institutions around the world are authorized. The repository contains 7820+ hours of video from 7830+ participants.
-Datavyu8,55 is a powerful, flexible, coding tool that allows researchers to manipulate the temporal-spatial properties of behavior and to tag portions of the video for events and behaviors of interest. With fingertip control over video playback, they can run the video forward and backward at varying speeds (±1/32- 32x normal speed) or jog frame by frame to determine when behaviors began and ended, freeze frames to dissect behavior into its component parts, zoom in/out to focus on details or the larger context, and label behavioral events with categorical and qualitative codes. Each code is time-locked to the video to facilitate tests of behavioral cascades and real-time contingencies based on sequential order, duration, and begin/end times of events. A full scripting language allows researchers to manipulate the spreadsheet, error-check entries, import other data streams, and export data to their specifications for analyses. The latest Datavyu release has new features to reduce the notoriously high cost of transcribing infant and mother speech in noisy contexts, time locked to video, at the utterance level (from the typical 10-12 hours per hour of video to 7-9 hours).
+Databrary [@databrary-site], funded by NICHD/NSF, is a digital web-based library for sharing and reusing research videos, clips, and displays. 
+Researchers can reuse shared videos to ask questions beyond the scope of the original study [@Adolph_undated-od]. 
+They can use shared video clips to learn about procedures and to illustrate findings and displays for teaching [@Gilmore2017-eh]. 
+Sharing is easy. 
+To mitigate the onerous task of curating a dataset after the study is completed, Databrary developed an active curation system. 
+Researchers can use Databrary as a file manager, lab server, and secure backup prior to sharing52. 
+When they are ready to share, they need only click a button. 
+
+Video contains personally identifiable information, so sharing poses special ethical issues. 
+Advised by ethics experts, IRB and grants/contracts administrators, and legal counsel, Databrary developed a policy framework53,54 for sharing identifiable data based on obtaining participants’ permission to share and restricting access to authorized researchers under the oversight of their institutions. 
+Since the Databrary website went live in 2014, 580+ researchers (including the launch group) and 245+ affiliates from 330+ institutions around the world are authorized. The repository contains 7820+ hours of video from 7830+ participants.
+Datavyu [@datavyu-site; @Adolph2015-oy] is a powerful, flexible, coding tool that allows researchers to manipulate the temporal-spatial properties of behavior and to tag portions of the video for events and behaviors of interest. 
+With fingertip control over video playback, they can run the video forward and backward at varying speeds (±1/32- 32x normal speed) or jog frame by frame to determine when behaviors began and ended, freeze frames to dissect behavior into its component parts, zoom in/out to focus on details or the larger context, and label behavioral events with categorical and qualitative codes. 
+Each code is time-locked to the video to facilitate tests of behavioral cascades and real-time contingencies based on sequential order, duration, and begin/end times of events. 
+A full scripting language allows researchers to manipulate the spreadsheet, error-check entries, import other data streams, and export data to their specifications for analyses. 
+The latest Datavyu release has new features to reduce the notoriously high cost of transcribing infant and mother speech in noisy contexts, time locked to video, at the utterance level (from the typical 10-12 hours per hour of video to 7-9 hours).
 
 Naturally, The creation of a large dataset with many variables raises the possibility that a particular statistically significant finding may be spurious. 
 In particular, correlational analyses among non-video questionnaire data require special protection against spurious findings because of the large number of easily available measures (Table 2). 

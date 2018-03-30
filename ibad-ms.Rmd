@@ -1,5 +1,5 @@
 ---
-title             : "Big data about little people: The Play & Learning Across a Year (PLAY) Project"
+title             : "Big data about small people: The Play & Learning Across a Year (PLAY) Project"
 shorttitle        : "PLAY Project"
 
 author: 
@@ -79,6 +79,21 @@ library(stringr)
 library(choroplethr)
 library(choroplethrMaps)
 library(tidyr)
+library(databraryapi)
+library(ggmap)
+
+play.palette <- scale_fill_manual(values=c("blue2", "firebrick2", "chartreuse2", "darkorchid2"))
+
+play.theme <-   
+  theme_classic() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size = rel(1.2)),
+        axis.title = element_text(size = rel(1.5), face ="bold"),
+        axis.text.x = element_text(size = rel(1.2)),
+        axis.text.y = element_text(size = rel(1.2)),
+        axis.line = element_blank(),
+        axis.title.y = element_blank())
 ```
 
 ```{r get-install-census-key, include = FALSE}
@@ -90,21 +105,15 @@ library(tidyr)
 # Seed for random number generation
 set.seed(42)
 
-# Hacky must fix
-#api.dir <- "../../gilmore-lab/databrary-r-api/"
-command.list <- c("login_db.R", "config_db.R", "authenticate_db.R", "download_csv.R")
-for (c in 1:length(command.list)) {
-  source(command.list[c])
-}
+csv.dir <- "csv/"
+r.dir <- "csv/"
+
 source("R/numbers2words.R")
 source("R/Cap_all.R")
 source("R/Init_cap.R")
 source("R/census.api.key.R")
 
 login_db()
-config_db()
-
-csv.dir <- "csv/"
 ```
 
 Behavior lies at the core of developmental science [@Gibson1994-kb].
@@ -137,6 +146,42 @@ Planning began in late 2015.
 Adolph, Tamis-LeMonda and Gilmore (PLAY PIs) invited researchers to join the launch group based on their interest in open science and infant-mother natural activity in the home, willingness to collaborate on data collection and coding, lab location, and domains of expertise (language, gesture, play, object exploration, tool use, locomotion, posture, physical activity, emotion, temperament, parent responsiveness, gender, home environment, media use, spatial demography, and sampling). 
 Nearly every invitee agreed.
 The current launch group consists of `r n.pis` from `r n.institutions` institutions and `r n.states` states. `r round(with(play.pis, table(New)/sum(table(New)))*100, 0)[1]`% are new investigators, `r round(with(play.pis, table(Gender)/sum(table(Gender)))*100, 0)[1]`% women, `r round(with(play.pis, table(Race_eth)/sum(table(Race_eth)))*100, 0)[1]` non-white, from varied institutions (public and private universities and colleges, hospitals, agencies) with varied resources (`r sum(round(with(play.pis, table(Institution_Type)/sum(table(Institution_Type)))*100, 0)[1:3])` public universities, `r round(with(play.pis, table(R15_eligible)/sum(table(R15_eligible)))*100, 0)[1]`% R15-eligible institutions) across the United States and Canada.
+Figure \@ref{fig:play-site-map}
+
+```{r play-site-map, fig.cap = "A map of the PLAY project data collection sites."}
+site_data <- read.csv(paste0(csv.dir, "city-state-county.csv"))
+
+n.counties <- dim(site_data)[1]
+
+# Datascience toolkit site source="dsk" more robust for multiple free queries
+get_latlon <- function(i, sites) {
+  county.state <- paste0(sites$County[i], " ", sites$State[i])
+  latlon <- ggmap::geocode(county.state, output="latlon", 
+                           source="dsk", messaging = FALSE)
+  if (!is.null(latlon)) {
+    return(latlon)
+  } else {
+    cat(paste0("Lat/Lon not returned for .", city.county.state))
+    return(NULL)
+  }
+} 
+
+if (n.counties > 0) {
+  lat.lons <- lapply(1:n.counties, get_latlon, site_data)
+  lat.lons.df <- Reduce(function (x,y) merge(x,y, all=TRUE), lat.lons)
+}
+
+site_latlons <- cbind(site_data, lat.lons.df)
+
+myMAP <- get_map(location='united states', zoom=4, maptype='terrain', source='google', color='color')
+
+ggmap(myMAP) +
+  geom_point(data = site_latlons, 
+             aes(x = site_latlons$lon, 
+                 y = site_latlons$lat, color = "red")) +
+  theme(legend.position = element_blank())
+```
+
 
 To distribute the burden of video coding across researchers, we recruited 10+ experts to shape the development of coding passes in four fundamental domains--communication, object interaction, locomotion, and emotion.
 These domains represent key areas of infant development and provide foundational information for future discovery when time-locked to video.
@@ -201,7 +246,7 @@ We chose these ages because 12- to 24-months represents a period of important, r
 For example, by 12 months, about half of infants can walk and half still crawl. 
 By 18 months, infants are proficient walkers, and by 24 months, they can run, walk backwards, and walk up stairs [@Robinson2015-qe; @Onis2006-le]. 
 Around 12 months, infants produce their first words. 
-By 18 months, most display a vocabulary spurt, and by 24 months infants combine words into simple sentences13,14 [@Bloom1995-xb; @Hoff2013-er]. 
+By 18 months, most display a vocabulary spurt, and by 24 months infants combine words into simple sentences [@Bloom1995-xb; @Hoff2013-er]. 
 But these ages represent only group averages; individual infants show tremendous variability in these behaviors at each age.
 
 All infants recruited were from the New York City area. 
@@ -220,7 +265,6 @@ The wiki links text-based descriptions of each code to video clips illustrating 
 <!-- It uses photos and video exemplars to make text-based descriptions clear and transparent.  -->
 <!-- The wiki makes cross-site training consistent and cost-efficient and ensure that future researchers can reproduce our protocol with high fidelity. -->
 
-        
 ### Data analysis
 
 For this report, we used `r cite_r("r-references.bib")` for all of our statistical analyses.
@@ -244,12 +288,13 @@ So, with 1-2 hours of round-trip travel time, the entire data collection could b
 All families were asked permission to share data with authorized researchers on Databrary using language adapted from the Databrary release template [@databrary-release].
 Nineteen of the 20 families agreed to share; 3 families agreed to share data only with authorized Databrary researchers and 16 agreed to allow authorized researchers to show clips in public settings for informational or educational purposes.
 
-In carrying out coding on X of the participants' sessions, we established that All four foundational coding passes are easy to learn (by undergraduate coders on Datavyu) and time efficient (< 3 hours for both infant and mother for each coding pass per hour of video).
+In carrying out coding on X of the participants' sessions, we established that all four foundational coding passes are easy to learn (by undergraduate coders on Datavyu) and time efficient (< 3 hours for both infant and mother for each coding pass per hour of video).
 Adaptations to Datavyu enable transcription in English or Spanish to take 7-9 hours per hour of video, while infant and mother communicative acts and gestures together take < 3 hours to code.
 
 ### Demographic and self-report measures
 
 Due to some technical difficulties with pilot versions of the tablet app, we are only able to report here demographic and self-report data from $n=$18 families.
+Reconstructions of the missing data from video are ongoing, and updates will appear on the project's Databrary volume [@play-pilot-volume] once those are completed.
 
 ```{r summarize-infant-birth}
 cb <- read_csv("csv/child-birth.csv")
@@ -259,6 +304,24 @@ bw.sum <- round(fivenum(cb$birth_weight_g), 0)
 
 Infants had largely uncomplicated, healthy births. 
 Birth weights (in g) ranged from `r bw.sum[1]` to `r bw.sum[5]` (mean = `r mean(bw.sum)` g); `r length(with(cb, table(newborn_complications)))` had birth complications (e.g., C-section, preeclampsia).
+Figure \@ref{fig:plot-sound-avg-db} shows the parent-reported ages for the onset of hands and knees crawling and walking using procedures Adolph has used previously.
+
+```{r locomotion-plot, fig.cap = "Parent-reported onset ages for hands and knees crawling and walking"}
+locomotion <- read.csv(paste0(csv.dir, "locomotion.csv"))
+
+locomotion %>%
+  gather(key = milestone, value = age.mos, hkcrawl_onset_mos, walk_onset_mos) %>%
+  mutate(milestone = factor(milestone, labels = c("crawl", "walk"))) %>%
+  # arrange(desc(age.mos)) %>%
+  ggplot() +
+  aes(x = age.mos, y = id) +
+  geom_point(aes(shape = milestone, color = milestone)) +
+  geom_line(aes(group = id)) +
+  xlab("Age (months)") +
+  geom_rug(aes(x = age.mos, group = milestone, color = milestone),
+           sides = "b") +
+  play.theme
+```
 
 ```{r clean-up-cb}
 # Clean-up to save memory
@@ -434,8 +497,8 @@ Our hope is that it will seed substantial new scholarship.
 Researchers can examine real-time behavioral cascades among infant behaviors, among mother behaviors, and between infants and mothers. 
 They can test whether particular infant behaviors are temporally connected (e.g., vocalizations and gestures) or independent (vocalizations and locomotion). 
 They can test infant-to-mother cascades and vice versa, such as whether infant emotional expressions affect real-time language input from mother. 
-Prior correlational work, for example, shows that infants who express higher quantities of negative emotions display lower levels of language development on the MCDI and later language milestones37,80 [@Salley2007-gz; @Bloom1987-md]. 
-But the evidence for these findings offers limited insight into the real-time behaviors that underlie the correlations81. 
+Prior correlational work, for example, shows that infants who express higher quantities of negative emotions display lower levels of language development on the MCDI and later language milestones [@Salley2007-gz; @Bloom1987-md]. 
+But the evidence for these findings offers limited insight into the real-time behaviors that underlie the correlations81 [@Bloom1989-mw]. 
 With PLAY, researchers can examine real-time behavioral cascades by testing whether infants’ negative emotions (Table 1 VE1) hinder interactions with objects (Table 1 VO1) and/or vocal and gestural communications (Table 1 VL2-3), and consequently, lead to low quantity and diversity of mother speech (Table 1 VL1-2). 
 Infant emotions could also facilitate language learning: Emotional expressions might elicit mental state terms and emotion words from mothers (e.g., “You think mommy’s leaving?”, “Why are you sad?”). 
 Regardless, whether and how infant emotions affect their language development requires data on the words mothers use preceding, during, and following infant emotional behaviors in real time.
@@ -458,7 +521,7 @@ Researchers can reuse shared videos to ask questions beyond the scope of the ori
 They can use shared video clips to learn about procedures and to illustrate findings and displays for teaching [@Gilmore2017-eh]. 
 Sharing is easy. 
 To mitigate the onerous task of curating a dataset after the study is completed, Databrary developed an active curation system. 
-Researchers can use Databrary as a file manager, lab server, and secure backup prior to sharing52. 
+Researchers can use Databrary as a file manager, lab server, and secure backup prior to sharing [@Gordon2015-jp; @databrary-site]. 
 When they are ready to share, they need only click a button. 
 
 Video contains personally identifiable information, so sharing poses special ethical issues. 
@@ -491,7 +554,7 @@ If the data are too homogeneous, we will ask some sites to recruit more than the
 If a lab’s codes are not reliable, we will reassign the videos and retrain the coder.
 
 In conclusion, the PLAY project represents an innovative, synergistic, cross-domain approach to developmental science that will facilitate scientific discovery, transparency, and reproducibility we hope for years to come. 
-In creating the first, large-scale, sharable, reusable, fully transcribed, coded, and curated video corpus of human behavior, hope to establish video sharing of procedures, codes, and findings as a new standard in developmental and behavioral science.
+In creating the first, large-scale, sharable, reusable, fully transcribed, coded, and curated video corpus of human behavior, we hope to establish video sharing of procedures, codes, and findings as a new standard in developmental and behavioral science.
 In so doing, we hope to help answer fundamental cross-domain questions about behavioral, environmental, and developmental cascades as they shape the playful work of infants.
 
 \newpage

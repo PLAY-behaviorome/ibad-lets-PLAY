@@ -1,0 +1,42 @@
+---
+title: ""
+---
+
+```{r PLAY_site_map, include=FALSE, fig.cap="Map of planned PLAY data collection sites."}
+knitr::opts_chunk$set(echo = FALSE,
+                      fig.path = 'figs/',
+                      fig.align = "center")
+
+library(tidyverse)
+library(ggmap)
+
+csv.dir <- 'csv/'
+geo.fn <- 'city-state-county-latlon.csv'
+
+if (file.exists(paste0(csv.dir, geo.fn))) {
+  site.data <- read.csv(paste0(csv.dir, geo.fn))
+  
+  if (!(is.null(site.data))) {
+    play.map <- ggmap::get_map(location='united states', 
+                               zoom=4, maptype='terrain', 
+                               source='google',
+                               color='color',
+                               force=FALSE)
+    if (!(is.null(play.map))) {
+    play.collection.map <- ggmap(play.map) +
+      ggplot2::geom_point(data = site.data, 
+                 aes(x = site.data$lon, 
+                     y = site.data$lat, color = "red")) +
+      ggplot2::theme(legend.position = "none")
+    play.collection.map
+    } else {
+     stop("Could not load map.") 
+    }
+  } else {
+    stop("Error in reading site data file.")
+  }
+} else {
+  stop(paste0("File ", geo.fn, " can't be found."))
+}
+
+```

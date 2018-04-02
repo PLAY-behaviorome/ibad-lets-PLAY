@@ -1,0 +1,53 @@
+---
+title: "locomotion_onset"
+author: "Rick Gilmore"
+date: "`r Sys.time()`"
+output: 
+  pdf_document:
+    fig_caption: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.path = "figs/",
+                      fig.align = "center")
+library(tidyverse)
+library(choroplethr)
+library(choroplethrMaps)
+
+source("R/Cap_all.R")
+
+csv.dir <- 'csv/'
+
+# ggplot
+play.palette <- scale_fill_manual(values=c("blue2", "firebrick2", "chartreuse2", "darkorchid2"))
+
+play.theme <-   
+  theme_classic() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size = rel(1.2)),
+        axis.title = element_text(size = rel(1.5), face ="bold"),
+        axis.text.x = element_text(size = rel(1.2)),
+        axis.text.y = element_text(size = rel(1.2)),
+        axis.line = element_blank(),
+        axis.title.y = element_blank())
+```
+
+```{r locomotor-onset-plot}
+locomotion <- read.csv(paste0(csv.dir, "locomotion.csv"))
+
+locomotion %>%
+  gather(key = milestone, value = age.mos, hkcrawl_onset_mos, walk_onset_mos) %>%
+  mutate(milestone = factor(milestone, labels = c("crawl", "walk"))) %>%
+  # arrange(desc(age.mos)) %>%
+  ggplot() +
+  aes(x = age.mos, y = id) +
+  geom_point(aes(shape = milestone, color = milestone)) +
+  geom_line(aes(group = id)) +
+  xlab("Age (months)") +
+  geom_rug(aes(x = age.mos, group = milestone, color = milestone),
+           sides = "b") +
+  play.theme
+```
+

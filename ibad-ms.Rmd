@@ -69,7 +69,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       error = FALSE,
                       message = FALSE,
                       dpi = 72,
-                      cache = FALSE,
+                      cache = TRUE,
                       autodep = TRUE
                       )
 ```
@@ -142,12 +142,14 @@ n.pis <- length(unique(paste0(play.pis$Last, play.pis$First)))
 n.institutions <- length(unique(play.pis$Institution))
 n.states <- length(unique(play.pis$State))
 ```
+## Why's and wherefore's
 
 We named the project “PLAY” and use the terms “unstructured play” and “everyday play” to broadly refer to infants’ natural activities while awake. 
 To paraphrase Piaget [@Piaget1967-nl], Montessori [@Montessori1984-la], and Bruner [@Bruner1975-sp; @Bruner1976-ab], play is the work of infants.
 It is an approach to action, not a particular form of activity.
 Some of infants’ play involves toys and some play is joyful and goal directed, but all of their spontaneous vocalizations, interactions with objects and people, and locomotor bouts involve exploration and opportunities for learning and growth, regardless of affect or intent.
 
+## Recruiting the launch group
 Planning for the project began in late 2015.
 Adolph, Tamis-LeMonda and Gilmore (PLAY PIs) invited researchers to join the launch group based on their interest in open science and infant-mother natural activity in the home, willingness to collaborate on data collection and coding, lab location, and domains of expertise (language, gesture, play, object exploration, tool use, locomotion, posture, physical activity, emotion, temperament, parent responsiveness, gender, home environment, media use, spatial demography, and sampling). 
 Nearly every invitee agreed.
@@ -155,6 +157,8 @@ As of Spring 2018, the current launch group consists of `r n.pis` researchers fr
 
 To distribute the burden of video coding across researchers, we recruited more than 10 experts to shape the development of coding passes in four fundamental domains--communication, object interaction, locomotion, and emotion.
 These domains represent key areas of infant development and provide foundational information for future discovery when time-locked to video.
+
+## Launch group deliberations and decisions
 
 Through a yearlong series of telephone conversations with each launch group member and 12 group webinars [@PLAY-webinar-Databrary], we jointly developed a common sampling method and protocol (including materials, technical specifications, questionnaires, and non-video measures), designed common video codes, and established an infrastructure to divide responsibilities between PLAY staff and launch group.
 We achieved consensus, with input from NICHD program staff, about all aspects of PLAY at a daylong workshop at NIH in December 2016, materials from which are shared on Databrary [@PLAY-workshop-Databrary].
@@ -170,7 +174,7 @@ The codes were intendd to be quick, easy, and reliable to code in comparison wit
 Temporally aligned transcriptions and codes should enable researchers with expertise in any domain to analyze cascades within and among these behaviors.
 Experts in language and communication also recommended that we transcribe all mother speech and infant vocalizations in formats exportable to CHILDES [@MacWhinney2000-yn]. 
 
-Given the cost of going to families’ homes, the launch groupdetermined that we should augment recordings of natural play with a set of additional video, questionnaire, and non-video measures, that together would add only ~45 minutes to the home visit. 
+Given the cost of going to families’ homes, the launch group determined that we should augment recordings of natural play with a set of additional video, questionnaire, and non-video measures, that together would add only ~45 minutes to the home visit. 
 This would enable researchers to test whether variations in natural play, or in characteristics of distal and proximal environments, predict infant and mother behaviors when materials and conditions are held constant. 
 Thus, the solitary and dyadic play tasks are of interest in their own right, and might also serve as correlates in tests of experiential and environmental influences.
 
@@ -486,23 +490,37 @@ using laser measurements of room dimensions (Table 2 NH2).
 We can relate environmental features of clutter, ambient noise, and so on, to mothers’ speech and infants’ language development. 
 Researchers can expand the lens of environmental influences to consider how distal macro factors, such as family SES and geo-coded data on neighborhood poverty (Table 2 NH5) relate to proximal environmental measures—objects and space in the home—and in turn infant behaviors, mother behaviors, and infant language and skill.
 
-Databrary [@databrary-site], funded by NICHD/NSF, is a digital web-based library for sharing and reusing research videos, clips, and displays. 
-Researchers can reuse shared videos to ask questions beyond the scope of the original study [@Adolph_undated-od]. 
-They can use shared video clips to learn about procedures and to illustrate findings and displays for teaching [@Gilmore2017-eh]. 
-Sharing is easy. 
-To mitigate the onerous task of curating a dataset after the study is completed, Databrary developed an active curation system. 
-Researchers can use Databrary as a file manager, lab server, and secure backup prior to sharing [@Gordon2015-jp; @databrary-site]. 
-When they are ready to share, they need only click a button. 
+## Transparency and reproducibility
 
-Video contains personally identifiable information, so sharing poses special ethical issues. 
-Advised by ethics experts, IRB and grants/contracts administrators, and legal counsel, Databrary developed a policy framework53,54 for sharing identifiable data based on obtaining participants’ permission to share and restricting access to authorized researchers under the oversight of their institutions. 
-Since the Databrary website went live in 2014, 580+ researchers (including the launch group) and 245+ affiliates from 330+ institutions around the world are authorized. The repository contains 7820+ hours of video from 7830+ participants.
+In addition to its scientific innovations, PLAY aims to serve as a model of how big data science can proceed in a maximally transparent and reproducible way.
+
+### Data sharing
+All video and self-report data will be openly shared with the research community on Databrary [@databrary-site], a digital web-based library for sharing and reusing research videos, clips, and displays that has received support from NSF, NICHD, SRCD, The Sloan Foundation, and the LEGO Foundation.
+Videos associated with all procedures and code definitions will also be hosted and shared on Databrary and linked to the wiki.
+The PLAY launch group will have a short period of exclusive access to the data before the full dataset is shared in the summer of 2023, at the end of the projected NICHD grant period.
+By sharing all data, procedures, and coding information openly, other researchers can reuse shared videos to ask questions beyond the scope of the original study [@Adolph_undated-od]. 
+They can use shared video clips to learn about procedures and to illustrate findings and displays for teaching [@Gilmore2017-eh]. 
+
+Of course, video contains personally identifiable information, so sharing poses special ethical issues that Databrary's policy framework solves developed a policy framework53,54 for sharing identifiable data based on obtaining participants’ permission to share and restricting access to authorized researchers under the oversight of their institutions. 
+
+### Free, open-source tools
+PLAY is committed to using and deploying free and open source tools wherever possible.
+Databrary itself is a free and open-source application [@databrary-on-github].
 Datavyu [@datavyu-site; @Adolph2015-oy] is a powerful, flexible, coding tool that allows researchers to manipulate the temporal-spatial properties of behavior and to tag portions of the video for events and behaviors of interest. 
 With fingertip control over video playback, they can run the video forward and backward at varying speeds (±1/32- 32x normal speed) or jog frame by frame to determine when behaviors began and ended, freeze frames to dissect behavior into its component parts, zoom in/out to focus on details or the larger context, and label behavioral events with categorical and qualitative codes. 
 Each code is time-locked to the video to facilitate tests of behavioral cascades and real-time contingencies based on sequential order, duration, and begin/end times of events. 
 A full scripting language allows researchers to manipulate the spreadsheet, error-check entries, import other data streams, and export data to their specifications for analyses. 
 The latest Datavyu release has new features to reduce the notoriously high cost of transcribing infant and mother speech in noisy contexts, time locked to video, at the utterance level (from the typical 10-12 hours per hour of video to 7-9 hours).
 
+### Open, transparent, and reproducible workflows
+We have already begun to develop and deploy reproducible workflows using R.
+A repository on Github (PLAY-behaviorome) has been created to house processing scripts for the PLAY data [@cite-PLAY-behaviorome] including analyses of the PLAY launch group members characteristics, characteristics of the data collection sites, and so on.
+The PLAY-behaviorome repository includes the newly released alpha version of the `databraryapi` R package [@databraryapi] for interacting with Databrary from within R.
+We welcome community input on the package, and we plan to improve the package over time.
+We will eventually release a Python version, as well.
+In addition, this paper's analyses and plots can be re-generated from the repository associated with the working manuscript [@ibad-PLAY-github].
+
+### Reducing false-positives and pre-registration
 Naturally, The creation of a large dataset with many variables raises the possibility that a particular statistically significant finding may be spurious. 
 In particular, correlational analyses among non-video questionnaire data require special protection against spurious findings because of the large number of easily available measures (Table 2). 
 The corpus includes a summary score for each infant on each instrument, subscores for standard scales, and raw data for each item. 
@@ -522,6 +540,8 @@ However, the protocol and codes can be easily extended to other populations and 
 We will monitor ongoing data collections. 
 If the data are too homogeneous, we will ask some sites to recruit more than their allotment. 
 If a lab’s codes are not reliable, we will reassign the videos and retrain the coder.
+
+## Conclusion
 
 In conclusion, the PLAY project represents an innovative, synergistic, cross-domain approach to developmental science that will facilitate scientific discovery, transparency, and reproducibility we hope for years to come. 
 In creating the first, large-scale, sharable, reusable, fully transcribed, coded, and curated video corpus of human behavior, we hope to establish video sharing of procedures, codes, and findings as a new standard in developmental and behavioral science.

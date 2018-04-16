@@ -61,6 +61,8 @@ output            :
   github_document:
     toc: true
   word_document: default
+params:
+  databrary.account: default
 ---
 
 ```{r configure-document, include = FALSE}
@@ -86,6 +88,17 @@ library(databraryapi)
 library(ggmap)
 library(chron)
 
+if (params$databrary.account == "default") {
+  stop("Must specify Databrary account as parameter in file header or in call to rmarkdown::render().")
+}
+if (!login_db(params$databrary.account)) {
+  stop("Error logging in to Databrary. Try config_passwd().")
+}
+
+PLAY.nichd.vol.id <- 254
+PLAY.nichd.session.id <- 26338
+PLAY.pis.asset.id <- 117090
+
 play.palette <- scale_fill_manual(values=c("blue2", "firebrick2", "chartreuse2", "darkorchid2"))
 
 play.theme <-   
@@ -103,7 +116,7 @@ play.theme <-
 
 ```{r get-install-census-key, include = FALSE}
 # Get a Census API key from <https://api.census.gov/data/key_signup.html>
-# install it via api.key.install(key)
+# install it via acs::api.key.install(key)
 ```
 
 ```{r analysis_preferences, include = FALSE}
@@ -118,9 +131,7 @@ source("R/Cap_all.R")
 source("R/Init_cap.R")
 source("R/census.api.key.R")
 
-# Must log in to Databrary
-databraryapi::config_db()
-databraryapi::login_db()
+
 ```
 
 Behavior lies at the core of developmental science [@Gibson1994-kb].
@@ -137,7 +148,11 @@ In this paper, we describe the process of planning PLAY, our preliminary results
 # Project Planning
 
 ```{r get-PLAY-roster}
-play.pis <- read_csv("csv/play-pis.csv")
+#play.pis <- read_csv("csv/play-pis.csv")
+play.pis <- read_csv_data_as_df(PLAY.nichd.session.id, PLAY.pis.asset.id)
+if (is.null(play.pis)) {
+  stop("Error downloading PLAY PI data from Databrary.")
+}
 n.pis <- length(unique(paste0(play.pis$Last, play.pis$First)))
 n.institutions <- length(unique(play.pis$Institution))
 n.states <- length(unique(play.pis$State))
@@ -200,22 +215,29 @@ But these ages represent only group averages; individual infants show tremendous
 ### Participants
 
 ```{r calculate-demo-data}
-vol.444 <- read_csv(paste0(csv.dir,
-                           "play-pilot-demographics.csv"))
+#vol.444 <- read_csv(paste0(csv.dir, "play-pilot-demographics.csv"))
+vol.444 <- download_session_csv(volume = 444)
+# Drop materials session(s)
+vol.444 <- vol.444 %>% 
+  filter(., !is.na(participant.ID), 
+         !(participant.gender == ""),
+         !(participant.race == ""),
+         !(participant.ethnicity == ""),
+         !(group.name == ""))
 n.subs <- dim(vol.444)[1]
 
 age.by.gender <- xtabs(formula = ~ participant.gender + group.name, data = vol.444)
 
 race.by.ethnicity <- xtabs(formula = ~ participant.race + participant.ethnicity, data = vol.444)
 
-n.white <- sum(race.by.ethnicity[4,])
-n.asian <- sum(race.by.ethnicity[1,])
-n.multi <- sum(race.by.ethnicity[2,])
-n.unreported <- sum(race.by.ethnicity[3,])
-n.hispanic <- sum(race.by.ethnicity[,1])
+n.white <- sum(race.by.ethnicity['White',])
+n.asian <- sum(race.by.ethnicity['Asian',])
+n.multi <- sum(race.by.ethnicity['More than one',])
+n.unreported <- sum(race.by.ethnicity['Unknown or not reported',])
+n.hispanic <- sum(race.by.ethnicity[,'Hispanic or Latino'])
 ```
 
-A total of $n=$ `r n.subs` infants were tested, $n=$ `r sum(age.by.gender[,1])` 12-month-olds (`r age.by.gender[1,1]` female), $n=$ `r sum(age.by.gender[,2])` 18-month-olds (`r age.by.gender[1,2]` female), and $n=$ `r sum(age.by.gender[,3])` (`r age.by.gender[1,3]` female) 24-month-olds. 
+A total of $n=$ `r n.subs` infants were tested, $n=$ `r sum(age.by.gender[,'12 mos'])` 12-month-olds (`r age.by.gender['Female','12 mos']` female), $n=$ `r sum(age.by.gender[,'18 mos'])` 18-month-olds (`r age.by.gender['Female','18 mos']` female), and $n=$ `r sum(age.by.gender[,'24 mos'])` (`r age.by.gender['Female','24 mos']` female) 24-month-olds. 
 
 All infants recruited were from the New York City area. 
 `r Init_cap(numbers2words(n.white))` infants were White, `r numbers2words(n.asian)` was Asian, `r numbers2words(n.multi)` reported more than one race, and `r numbers2words(n.unreported)` did not report a race.
@@ -289,14 +311,9 @@ Adaptations to Datavyu enable transcription in English or Spanish to take 7-9 ho
 Due to some technical difficulties with pilot versions of the tablet app, we are only able to report here demographic and self-report data from $n=$ 18 families.
 Reconstructions of the missing data from video are ongoing, and updates will appear on the project's Databrary volume [@play-pilot-volume] once those are completed.
 
-```{r summarize-infant-birth}
-cb <- read_csv("csv/child-birth.csv")
-cb$birth_weight_g <- (cb$birth_weight_pounds + cb$birth_weight_ounces/16)*435.92
-bw.sum <- round(fivenum(cb$birth_weight_g), 0)
-```
-
 ```{r locomotion-plot, fig.cap = "Parent-reported onset ages for hands and knees crawling and walking"}
-locomotion <- read.csv(paste0(csv.dir, "locomotion.csv"))
+locomotion <- read_csv_data_as_df(26295, 117092)
+#locomotion <- read.csv(paste0(csv.dir, "locomotion.csv"))
 
 locomotion %>%
   gather(key = milestone, value = age.mos, hkcrawl_onset_mos, walk_onset_mos) %>%
@@ -314,12 +331,19 @@ locomotion %>%
   play.theme
 ```
 
+```{r childbirth-data}
+cb <- read_csv_data_as_df(26295, 116791)[,1:10]
+cb$bw_g <- 453.592*(cb$birth_weight_pounds + cb$birth_weight_ounces/16)
+bw.sum <- summary(cb$bw_g)
+```
+
 Infants had largely uncomplicated, healthy births. 
-Birth weights (in g) ranged from `r bw.sum[1]` to `r bw.sum[5]` (mean = `r mean(bw.sum)` g); `r length(with(cb, table(newborn_complications)))` had birth complications (e.g., C-section, preeclampsia).
+Birth weights (in g) ranged from `r min(bw.sum)` to `r max(bw.sum)` (mean = `r mean(bw.sum)` g); `r length(with(cb, table(newborn_complications)))` had birth complications (e.g., C-section, preeclampsia).
 Figure \@ref{fig:locomotion-plot} shows the parent-reported ages for the onset of hands and knees crawling and walking using procedures Adolph has used previously [@Adolph2003-rw; @Adolph2012-ab].
 
 ```{r summarize-family}
-fam <- read_csv("csv/family.csv")
+#fam <- read_csv("csv/family.csv")
+fam <- read_csv_data_as_df(26295, 116790)
 mom.ed.yrs <- with(fam, table(mom_education))
 partner.ed.yrs <- with(fam, table(partner_education))
 cohab.w.partner <- with(fam, table(partner_cohabitate))
@@ -332,7 +356,8 @@ Sixteen of the eighteen repondents reported a partner cohabitating with the fami
 The partner's education level ranged from `r min(fam$partner_education, na.rm = TRUE)` and `r max(fam$partner_education, na.rm = TRUE)` years of education, ($M=$ `r round(mean(fam$partner_education, na.rm = TRUE), 1)`) and `r sum(partner.working['ft'])` were working at least part time.
 
 ```{r summarize-language-exposure}
-lang.exp <- read.csv("csv/language-exposure.csv")
+#lang.exp <- read.csv("csv/language-exposure.csv")
+lang.exp <- read_csv_data_as_df(26295, 116787)
 span.to.child <- with(lang.exp, table(language, exposure_context))['Spanish', 'to_child']
 span.in.childcare <- with(lang.exp, table(language, exposure_context))['Spanish', 'childcare']
 non.english <- with(lang.exp, (table(id, language)))[,c('Armenian', 'Other', 'French', 'Hindi', 'Spanish', 'Polish', 'Russian')]
@@ -515,6 +540,7 @@ The latest Datavyu release has new features to reduce the notoriously high cost 
 ### Open, transparent, and reproducible workflows
 We have already begun to develop and deploy reproducible workflows using R.
 A repository on Github (PLAY-behaviorome) has been created to house processing scripts for the PLAY data [@cite-PLAY-behaviorome] including analyses of the PLAY launch group members characteristics, characteristics of the data collection sites, and so on.
+Indeed, the summary statistics about the PLAY Launch Group and the pilot study participants were derived directly from raw data files and incorporated into this manuscript using the `papaja` package [@R-papaja] we used to create the paper.
 The PLAY-behaviorome repository includes the newly released alpha version of the `databraryapi` R package [@databraryapi] for interacting with Databrary from within R.
 We welcome community input on the package, and we plan to improve the package over time.
 We will eventually release a Python version, as well.

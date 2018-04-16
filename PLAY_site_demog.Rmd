@@ -1,0 +1,124 @@
+---
+title: "Make PLAY collection site demographic figs"
+output:
+  github_document: default
+params:
+  figs.dir: figs/
+  databrary.account: default
+---
+
+```{r set-up}
+knitr::opts_chunk$set(echo = FALSE,
+                      fig.path = params$figs.dir,
+                      fig.align = "center")
+
+library(tidyverse)
+library(choroplethr)
+library(choroplethrMaps)
+library(databraryapi)
+
+source("R/Cap_all.R")
+
+PLAY.nichd.vol.id <- 254
+PLAY.nichd.session.id <- 26338
+PLAY.pis.asset.id <- 117087
+PLAY.collection.sites.asset.id <- 117088
+
+if (params$databrary.account == "default") {
+  stop("Must specify Databrary account as parameter in file header or in call to rmarkdown::render().")
+}
+if (!login_db(params$databrary.account)) {
+  stop("Error logging in to Databrary. Try config_passwd().")
+}
+
+# ggplot
+play.palette <- scale_fill_manual(values=c("blue2", "firebrick2", "chartreuse2", "darkorchid2"))
+
+play.theme <-   
+  theme_classic() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size = rel(1.2)),
+        axis.title = element_text(size = rel(1.5), face ="bold"),
+        axis.text.x = element_text(size = rel(1.2)),
+        axis.text.y = element_text(size = rel(.7)),
+        axis.line = element_blank(),
+        axis.title.y = element_blank(),
+        plot.margin=unit(c(0,.5,0,0),"cm"))
+
+```
+
+```{r download-Census-data}
+# counties <- read.csv(paste0(csv.dir, "city-state-county.csv"), stringsAsFactors = FALSE)
+counties <- read_csv_data_as_df(PLAY.nichd.session.id, PLAY.collection.sites.asset.id, vb = TRUE)
+if (is.null(counties)) {
+  stop("Error downloading collection site data file from Databrary.")
+}
+# 
+# data("county.regions")
+# counties <- left_join(counties, county.regions)
+demog <- choroplethr::get_county_demographics(endyear=2013, span=5)
+county.demo <- left_join(counties, demog)
+
+# Recapitalize county
+county.demo$County <- unlist(lapply(county.demo$County, Cap_all))
+# Hack District Of columbia...TODO(ROG): Fix Cap_all()
+county.demo$County[county.demo$County == "District Of columbia"] = "District of Columbia"
+county.demo <- county.demo %>%
+  mutate(state.cty = paste0(County, ", ", State))
+
+county.demo %>%
+  select(., US.Region, Site.code, State, County, state.cty, percent_black, 
+         percent_hispanic, percent_asian, percent_white) %>%
+  gather(., key = race, value = pop.percent, percent_black:percent_white) ->
+county.pop.percent
+
+county.pop.percent$race <- recode(county.pop.percent$race, 
+                                  percent_black = "Black", 
+                                  percent_hispanic = "Hispanic",
+                                  percent_asian = "Asian",
+                                  percent_white = "White")
+
+```
+
+```{r PLAY_collect_race_by_county_plot, include=TRUE}
+county.demo %>%
+  mutate(., p.white = percent_white) %>%
+  select(., State, County, p.white) ->
+  p.white.sortlist
+
+county.plot.data <- left_join(county.pop.percent, p.white.sortlist) %>%
+  arrange(., p.white) %>%
+  mutate(., state.cty = factor(state.cty, unique(state.cty)))
+
+race.plot <- county.plot.data %>%
+  ggplot(.) +
+  aes(x = state.cty, y = pop.percent, fill = race) +
+  geom_col() +
+  scale_fill_discrete(limits=c("Asian", "Black", "Hispanic", "White")) +
+  play.palette +
+  play.theme +
+  coord_flip() +
+  scale_y_continuous(expand=c(0,0)) +
+  ylab("Proportion of population")
+race.plot
+message("Saving plot of PLAY data collection site race data to ", params$figs.dir)
+```
+
+```{r PLAY_collect_per_capita_income_plot, include=TRUE}
+econ.plot.data <- county.demo %>%
+  arrange(., per_capita_income) %>%
+  mutate(., state.cty = factor(state.cty, unique(state.cty))) 
+
+econ.plot <- econ.plot.data %>%
+  ggplot(.) +
+  aes(x = state.cty, y = per_capita_income, fill = US.Region) +
+  geom_col() +
+  coord_flip() +
+  play.theme +
+  play.palette +
+  scale_y_continuous(expand=c(0,0)) +
+  ylab("Median per capita income by site")
+econ.plot
+message("Saving plot of PLAY data collection site economic data to ", params$figs.dir)
+```

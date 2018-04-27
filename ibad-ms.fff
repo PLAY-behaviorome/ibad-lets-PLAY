@@ -1,18 +1,72 @@
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
 
-\centering
-\includegraphics{ibad-ms_files/figure-latex/PLAY-race-plot-1.pdf}
-\caption{}
+
+{\centering \includegraphics{ibad-ms_files/figure-latex/locomotion-plot-1}
+
+}
+
+\caption{Parent-reported onset ages for hands and knees crawling and walking}\label{fig:locomotion-plot}
 \end{figure*}
 \efloatseparator
  
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
 
-\centering
-\includegraphics{ibad-ms_files/figure-latex/PLAY-econ-plot-1.pdf}
-\caption{}
+
+{\centering \includegraphics{figs/PLAY-collection-map-1}
+
+}
+
+\caption{Map of planned data collection sites for PLAY project.}\label{fig:play-site-map}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+
+{\centering \includegraphics{figs/race-by-county-all-regions-plot-1}
+
+}
+
+\caption{Racial composition of counties targeted for PLAY project recruitment.}\label{fig:race-by-county}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+
+{\centering \includegraphics{figs/per-capita-income-plot-1}
+
+}
+
+\caption{Median per capita income per year in counties targeted for PLAY project recruitment.}\label{fig:PLAY-econ-plot}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+
+{\centering \includegraphics{figs/ed-attain-bars-plot-1}
+
+}
+
+\caption{Educational attainment in counties targeted for PLAY project recruitment.}\label{fig:PLAY-ed-plot}
+\end{figure*}
+\efloatseparator
+ 
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+
+{\centering \includegraphics{figs/spanish-speaking-plot-1}
+
+}
+
+\caption{Proportion of English-only, Spanish, and Other language speakers in counties targeted for PLAY project recruitment.}\label{fig:PLAY-spanish}
 \end{figure*}
 \efloatseparator
  
